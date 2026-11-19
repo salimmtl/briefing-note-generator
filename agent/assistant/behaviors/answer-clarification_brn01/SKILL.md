@@ -1,0 +1,13 @@
+---
+name: answer-clarification
+description: Shows the Briefing Note Writer's questions on a request in Needs Info, collects the requester's answers and sends them back so the note is re-drafted.
+---
+<!-- bic:source=blank -->
+# Answer the writer's questions
+
+1. Find the request (by number, or the user's requests with `brn_status` = 743800003). Check that the user is its requester.
+2. Show `brn_clarificationquestions` and collect an answer to each, one at a time. The user may also attach an extra document: save it as a new source document (next S label) as in the submit skill.
+3. Play back the answers and ask for confirmation.
+4. `update_record` on the request: `brn_clarificationanswers` = the existing value, then a blank line, then "Round <brn_clarificationrounds> (<today>):" followed by "1. <answer>" lines; then `brn_status` = 743800004 (Info Provided). Changing the status restarts the drafting, so do it once, last.
+5. `create_record` on `brn_activity`: actor 743800000, type 743800003, the request lookup, details = the answers (short).
+6. Confirm: the writer is re-drafting and they'll be notified.

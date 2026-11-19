@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{360d8318-bd80-46e6-9a9c-bb95f323ed07}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="Document" id="{EC594E30-76FF-4581-83AA-F7C2B5198F9C}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Document" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Source document" id="{CA64316C-8A3E-48D4-A0E8-2FAAB88026D6}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="Source document" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{A639E2B2-903C-4C8D-8244-4B8A4B471CF7}" showlabel="true">
+                        <labels>
+                          <label description="Source Label" languagecode="1033" />
+                        </labels>
+                        <control id="brn_sourcelabel" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_sourcelabel" disabled="false" />
+                      </cell>
+                      <cell id="{ADCBC3CE-6200-4825-83CF-F3D87362E164}" showlabel="true">
+                        <labels>
+                          <label description="File Name" languagecode="1033" />
+                        </labels>
+                        <control id="brn_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{26A76498-2DEC-44B2-8857-FBD396398475}" showlabel="true">
+                        <labels>
+                          <label description="Briefing Request" languagecode="1033" />
+                        </labels>
+                        <control id="brn_requestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="brn_requestid" disabled="false" />
+                      </cell>
+                      <cell id="{1CFA0B34-5733-4324-A2B6-895E297ADB9A}" showlabel="true">
+                        <labels>
+                          <label description="Document Type" languagecode="1033" />
+                        </labels>
+                        <control id="brn_documenttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_documenttype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{18C5FBF9-0F85-4D33-A004-01F653B1D339}" showlabel="true">
+                        <labels>
+                          <label description="File" languagecode="1033" />
+                        </labels>
+                        <control id="brn_file" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_file" disabled="false" />
+                      </cell>
+                      <cell id="{8FA8893E-2BA4-497D-AB1A-FFC3A75E65DB}" showlabel="true">
+                        <labels>
+                          <label description="Extraction Status" languagecode="1033" />
+                        </labels>
+                        <control id="brn_extractionstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_extractionstatus" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{85580973-02E3-46A8-9C6E-C610C22D26DF}" showlabel="true">
+                        <labels>
+                          <label description="Pages" languagecode="1033" />
+                        </labels>
+                        <control id="brn_pagecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_pagecount" disabled="false" />
+                      </cell>
+                      <cell id="{AD302E69-2E36-4721-B81D-1655F35FDA84}" showlabel="true">
+                        <labels>
+                          <label description="Characters" languagecode="1033" />
+                        </labels>
+                        <control id="brn_charactercount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_charactercount" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Summary" id="{C9B3483E-2331-4B6D-9ED4-5C6D43600600}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Summary" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{451E2E0F-81D7-45C1-98D1-E95FD597981B}" showlabel="true" rowspan="5">
+                        <labels>
+                          <label description="Summary" languagecode="1033" />
+                        </labels>
+                        <control id="brn_summary" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_summary" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Extracted text" id="{995D37C2-96A5-486B-99D4-2A96442EAAFC}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Extracted text" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Extracted text" id="{DB93E7FF-1311-484F-8147-9E7D7A490D41}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="Extracted text" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{9BB48ED3-C782-4664-97A6-9EE8258B4A74}" showlabel="true" rowspan="20">
+                        <labels>
+                          <label description="Extracted Text" languagecode="1033" />
+                        </labels>
+                        <control id="brn_extractedtext" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_extractedtext" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{4242B2E3-5EC6-49B0-9C2E-57990EB860D5}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{B6380CE7-F3BC-48CD-B7F6-BCD43DAFDA44}" showlabel="true">
+              <labels>
+                <label description="Source Label" languagecode="1033" />
+              </labels>
+              <control id="header_brn_sourcelabel" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_sourcelabel" disabled="false" />
+            </cell>
+            <cell id="{413DEF95-FBA7-4F58-A266-5063985B4922}" showlabel="true">
+              <labels>
+                <label description="Document Type" languagecode="1033" />
+              </labels>
+              <control id="header_brn_documenttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_documenttype" disabled="false" />
+            </cell>
+            <cell id="{7F203495-43B9-462D-B529-9D8C0EE7CE59}" showlabel="true">
+              <labels>
+                <label description="Extraction Status" languagecode="1033" />
+              </labels>
+              <control id="header_brn_extractionstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_extractionstatus" disabled="false" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{434DB448-DDAD-4AC6-9E89-1EAA7803DA96}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows />
+      </footer>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Source Document" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

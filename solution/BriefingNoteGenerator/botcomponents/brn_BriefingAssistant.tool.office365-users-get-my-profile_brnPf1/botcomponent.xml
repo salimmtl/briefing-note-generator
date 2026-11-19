@@ -1,0 +1,11 @@
+<botcomponent schemaname="brn_BriefingAssistant.tool.office365-users-get-my-profile_brnPf1">
+  <componenttype>9</componenttype>
+  <description>Returns the signed-in user Microsoft 365 profile. Use it once at the start to get the requester name and work email (userPrincipalName, or mail if empty).</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Get my profile (V2)</name>
+  <parentbotid>
+    <schemaname>brn_BriefingAssistant</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

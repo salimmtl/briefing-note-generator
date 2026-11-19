@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModule>
+  <UniqueName>brn_BriefingNotesHub</UniqueName>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <WebResourceId>953b9fac-1e5e-e611-80d6-00155ded156f</WebResourceId>
+  <OptimizedFor></OptimizedFor>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <FormFactor>1</FormFactor>
+  <ClientType>4</ClientType>
+  <NavigationType>0</NavigationType>
+  <AppModuleComponents>
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="1" schemaName="entity" />
+    <AppModuleComponent type="26" id="{2ddf9670-d115-4e2d-88ac-0a60b615b141}" />
+    <AppModuleComponent type="26" id="{a6484bab-b5df-432a-a7e9-0a7a60b5b0e6}" />
+    <AppModuleComponent type="26" id="{cd944361-80b7-511f-b7df-374d6fb0dd4d}" />
+    <AppModuleComponent type="26" id="{500b2d84-4516-5a87-9cf6-381831bd5552}" />
+    <AppModuleComponent type="26" id="{35dd73b1-1d51-515a-8858-415a15d71be2}" />
+    <AppModuleComponent type="26" id="{61ec0d26-6184-4f8d-82d4-4286b607640e}" />
+    <AppModuleComponent type="26" id="{e8b4c626-8858-53b8-a6fc-476f7d7fcbd7}" />
+    <AppModuleComponent type="26" id="{2d3da5a1-3ff6-5e9e-b278-7365149a1b3f}" />
+    <AppModuleComponent type="26" id="{14cb531a-c399-46b3-b93b-8e3d216098b6}" />
+    <AppModuleComponent type="26" id="{55920b4e-6fa7-4707-bbf0-9108cbf83c9d}" />
+    <AppModuleComponent type="26" id="{4e5add34-cace-4722-a3ba-925309b63c6f}" />
+    <AppModuleComponent type="26" id="{55faef87-5cb1-54d8-8897-a70d9a908a48}" />
+    <AppModuleComponent type="26" id="{6fd80068-08fc-5ec7-a6d1-aaa01084099d}" />
+    <AppModuleComponent type="26" id="{ece4ef94-20a2-4326-896e-bbcdfd74f258}" />
+    <AppModuleComponent type="26" id="{ef7dcfea-d3f3-42e6-8991-c4bd178333a8}" />
+    <AppModuleComponent type="26" id="{0ceb5c84-7e56-4b23-9f1d-cab7a800abbb}" />
+    <AppModuleComponent type="26" id="{e8ad2236-f389-5b03-8226-db846d6d405f}" />
+    <AppModuleComponent type="26" id="{2d2c53a3-9802-469e-97ae-f5e037c22d62}" />
+    <AppModuleComponent type="59" id="{63951e91-2683-5df0-96ba-41c4682fa485}" />
+    <AppModuleComponent type="59" id="{58c77432-2c85-589c-b1c7-7038540f4162}" />
+    <AppModuleComponent type="59" id="{6c5d33e4-189a-5a43-ab9f-7ae95e50ed2f}" />
+    <AppModuleComponent type="59" id="{8377be3d-016e-5c40-9149-bcae31fd8f37}" />
+    <AppModuleComponent type="59" id="{af331306-4129-57a4-a7f4-dcc8421aa12d}" />
+    <AppModuleComponent type="60" id="{09888e28-fe9a-4cb4-9f1b-14e16535947d}" />
+    <AppModuleComponent type="60" id="{b33d7219-2f00-47f3-813a-36807a8d80ad}" />
+    <AppModuleComponent type="60" id="{519f95ce-56e8-448a-8b20-542e2baaba6b}" />
+    <AppModuleComponent type="60" id="{360d8318-bd80-46e6-9a9c-bb95f323ed07}" />
+    <AppModuleComponent type="60" id="{65dfa5b1-8474-5044-8999-d23eea34d46d}" />
+    <AppModuleComponent type="60" id="{57033fbf-2951-4e67-a33c-e6e0a74ddc8b}" />
+    <AppModuleComponent type="62" schemaName="brn_BriefingNotesHub" />
+  </AppModuleComponents>
+  <AppModuleRoleMaps>
+    <Role id="{055c5547-55dd-f111-84e8-7c1e5240ac7b}" />
+    <Role id="{463ff643-55dd-f111-84e8-7c1e52067fec}" />
+    <Role id="{c945a148-55dd-f111-84ea-7c1e52408682}" />
+    <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+    <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+  </AppModuleRoleMaps>
+  <LocalizedNames>
+    <LocalizedName description="Briefing Notes Hub" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Track briefing note requests from intake to delivery: AI drafts, clarifications, review, source documents and the activity timeline." languagecode="1033" />
+  </Descriptions>
+  <appsettings>
+    <appsetting settingdefinitionid.uniquename="AppChannel">
+      <iscustomizable>1</iscustomizable>
+      <value>1</value>
+    </appsetting>
+  </appsettings>
+</AppModule>

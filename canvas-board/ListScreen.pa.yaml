@@ -1,0 +1,894 @@
+Screens:
+  ListScreen:
+    Properties:
+      Fill: =ClrCanvas
+    Children:
+      - conListRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            Width: =Parent.Width
+            Height: =Parent.Height
+            LayoutMinWidth: =0
+            LayoutMinHeight: =0
+            Fill: =ClrCanvas
+            LayoutGap: =0
+            PaddingBottom: =24
+          Children:
+            - conListHeader:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutWrap: =true
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.Start
+                  LayoutGap: =16
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  PaddingTop: =12
+                  PaddingBottom: =12
+                  Fill: =ClrSurface
+                  DropShadow: =DropShadow.Light
+                  FillPortions: =0
+                  Height: =If(App.Width < 1000, 112, 64)
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblListWordmark:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Briefing Board"
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        Width: =170
+                        Height: =40
+                        FillPortions: =0
+                        Wrap: =false
+                        AccessibleLabel: ="Briefing Board"
+                  - conListNav:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =4
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        Width: =320
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnListNavBoard:
+                            Control: ModernButton
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Text: ="Board"
+                              OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =ClrText
+                              FontWeight: =FontWeight.Normal
+                              AccessibleLabel: ="Board"
+                        - btnListNavList:
+                            Control: ModernButton
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Text: ="List"
+                              OnSelect: =Navigate(ListScreen, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Primary
+                              Color: =ClrSurface
+                              FontWeight: =FontWeight.Semibold
+                              AccessibleLabel: ="List, current page"
+                        - btnListNavOverview:
+                            Control: ModernButton
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Text: ="Overview"
+                              OnSelect: =Navigate(OverviewScreen, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =ClrText
+                              FontWeight: =FontWeight.Normal
+                              AccessibleLabel: ="Overview"
+                  - conListHeaderSpacer:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        FillPortions: =1
+                        Height: =8
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                  - bdgListAttention:
+                      Control: ModernBadge
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Content: =CountRows(Filter(colRequests, Status = "Needs Attention")) & " need attention"
+                        Visible: =CountRows(Filter(colRequests, Status = "Needs Attention")) > 0
+                        Fill: =ClrRedTint
+                        BorderColor: =ClrRedTint
+                        Color: =ClrRed
+                        Appearance: =BadgeAppearance.Tint
+                        Shape: =BadgeShape.Rounded
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Width: =140
+                        Height: =28
+                        FillPortions: =0
+                        AccessibleLabel: =CountRows(Filter(colRequests, Status = "Needs Attention")) & " need attention"
+                  - lblListUpdated:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Updated " & Text(varUpdatedAt, "hh:mm:ss")
+                        Size: =12
+                        Color: =ClrTextSecondary
+                        Width: =120
+                        Height: =28
+                        FillPortions: =0
+                        Wrap: =false
+                        Align: =Align.Right
+                        AccessibleLabel: ="Data updated at " & Text(varUpdatedAt, "hh:mm:ss")
+                  - btnListRefresh:
+                      Control: ModernButton
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Text: ="Refresh"
+                        Icon: ="ArrowClockwise"
+                        Layout: =ButtonLayout.IconBefore
+                        Appearance: =ButtonAppearance.Outline
+                        BasePaletteColor: =ClrAccent
+                        Width: =112
+                        Height: =36
+                        FillPortions: =0
+                        AccessibleLabel: ="Refresh data"
+                        OnSelect: |-
+                          =LoadBriefings();
+                          Set(varUpdatedAt, Now());
+                          Set(varSelected, LookUp(colRequests, Id = varSelected.Id))
+            - conListTitleRow:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  FillPortions: =0
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  Height: =80
+                  PaddingTop: =24
+                  PaddingBottom: =8
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =16
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblListTitle:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="All briefing requests"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                        Height: =40
+                        Wrap: =false
+                        AccessibleLabel: ="All briefing requests"
+                  - lblListCount:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: |-
+                          =CountRows(
+                              Filter(
+                                  colRequests,
+                                  IsBlank(Trim(txtListSearch.Text))
+                                      || Trim(txtListSearch.Text) in Number
+                                      || Trim(txtListSearch.Text) in Subject
+                                      || Trim(txtListSearch.Text) in Requester
+                                      || Trim(txtListSearch.Text) in Recipient,
+                                  IsBlank(ddListStatus.Selected.Value) || ddListStatus.Selected.Value = "All statuses" || Status = ddListStatus.Selected.Value,
+                                  IsBlank(ddListTemplate.Selected.Value) || ddListTemplate.Selected.Value = "All templates" || Template = ddListTemplate.Selected.Value,
+                                  !tglListOverdue.Checked || IsOverdue(DueDate, Status)
+                              )
+                          ) & " of " & CountRows(colRequests) & " requests"
+                        Size: =14
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrText
+                        Align: =Align.Right
+                        Width: =200
+                        Height: =24
+                        FillPortions: =0
+                        Wrap: =false
+                        AccessibleLabel: =Self.Text
+            - conListFilters:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutWrap: =true
+                  LayoutGap: =12
+                  LayoutAlignItems: =LayoutAlignItems.End
+                  PaddingTop: =16
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  Fill: =ClrSurface
+                  BorderColor: =ClrBorder
+                  BorderThickness: =1
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  FillPortions: =0
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  Height: =If(Self.Width >= 1128, 92, 164)
+                Children:
+                  - conListFieldSearch:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.End
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        Height: =60
+                        Width: =300
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblListSearchLabel:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Text: ="Search"
+                              Size: =12
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrTextSecondary
+                              Height: =20
+                              FillPortions: =0
+                              Wrap: =false
+                              AccessibleLabel: ="Search"
+                        - txtListSearch:
+                            Control: ModernTextInput
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Placeholder: ="Number, subject, requester or recipient"
+                              Default: =""
+                              Type: =TextInputType.Search
+                              TriggerOutput: =TriggerOutput.Delayed
+                              Appearance: =Appearance.Outline
+                              AccessibleLabel: ="Search requests"
+                              Height: =36
+                              FillPortions: =0
+                  - conListFieldStatus:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.End
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        Height: =60
+                        Width: =200
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblListStatusLabel:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Text: ="Status"
+                              Size: =12
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrTextSecondary
+                              Height: =20
+                              FillPortions: =0
+                              Wrap: =false
+                              AccessibleLabel: ="Status"
+                        - ddListStatus:
+                            Control: ModernDropdown
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Items: |-
+                                =Table({Value: "All statuses"}, StatusOptions)
+                              ItemDisplayText: =ThisItem.Value
+                              Default: '={Value: "All statuses"}'
+                              Appearance: =Appearance.Outline
+                              AccessibleLabel: ="Filter by status"
+                              Height: =36
+                              FillPortions: =0
+                  - conListFieldTemplate:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.End
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        Height: =60
+                        Width: =260
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblListTemplateLabel:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Text: ="Template"
+                              Size: =12
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrTextSecondary
+                              Height: =20
+                              FillPortions: =0
+                              Wrap: =false
+                              AccessibleLabel: ="Template"
+                        - ddListTemplate:
+                            Control: ModernDropdown
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Items: |-
+                                =Table(
+                                    {Value: "All templates"},
+                                    SortByColumns(Filter(Distinct(colRequests, Template), !IsBlank(Value)), "Value", SortOrder.Ascending)
+                                )
+                              ItemDisplayText: =ThisItem.Value
+                              Default: '={Value: "All templates"}'
+                              Appearance: =Appearance.Outline
+                              AccessibleLabel: ="Filter by template"
+                              Height: =36
+                              FillPortions: =0
+                  - conListFieldOverdue:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.End
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        Height: =60
+                        Width: =160
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblListOverdueLabel:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Text: ="Due date"
+                              Size: =12
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrTextSecondary
+                              Height: =20
+                              FillPortions: =0
+                              Wrap: =false
+                              AccessibleLabel: ="Due date"
+                        - tglListOverdue:
+                            Control: ModernToggle
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Label: ="Overdue only"
+                              LabelPosition: =ToggleLabelPosition.After
+                              Default: =false
+                              AccessibleLabel: ="Show overdue requests only"
+                              Height: =36
+                              FillPortions: =0
+                  - btnListClear:
+                      Control: ModernButton
+                      Properties:
+                        AlignInContainer: =AlignInContainer.End
+                        Text: ="Clear filters"
+                        Appearance: =ButtonAppearance.Outline
+                        BasePaletteColor: =ClrAccent
+                        Width: =128
+                        Height: =36
+                        FillPortions: =0
+                        AccessibleLabel: ="Clear all filters"
+                        DisplayMode: |-
+                          =If(
+                              IsBlank(Trim(txtListSearch.Text)) && ddListStatus.Selected.Value = "All statuses"
+                                  && ddListTemplate.Selected.Value = "All templates" && !tglListOverdue.Checked,
+                              DisplayMode.Disabled,
+                              DisplayMode.Edit
+                          )
+                        OnSelect: |-
+                          =Reset(txtListSearch); Reset(ddListStatus); Reset(ddListTemplate); Reset(tglListOverdue)
+            - lblListActive:
+                Control: ModernText
+                Properties:
+                  FillPortions: =0
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  AutoHeight: =true
+                  Wrap: =true
+                  Size: =12
+                  Color: =ClrTextSecondary
+                  PaddingTop: =10
+                  PaddingBottom: =10
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  AccessibleLabel: =Self.Text
+                  Text: |-
+                    =With(
+                        {s: Trim(txtListSearch.Text), st: ddListStatus.Selected.Value, tp: ddListTemplate.Selected.Value, od: tglListOverdue.Checked},
+                        If(
+                            IsBlank(s) && st = "All statuses" && tp = "All templates" && !od,
+                            "No filters applied. Sorted by due date, earliest first.",
+                            "Filtered by " & Concat(
+                                Filter(
+                                    Table(
+                                        {t: If(IsBlank(s), "", "search """ & s & """")},
+                                        {t: If(st = "All statuses", "", "status " & st)},
+                                        {t: If(tp = "All templates", "", "template " & tp)},
+                                        {t: If(od, "overdue only", "")}
+                                    ),
+                                    !IsBlank(t)
+                                ),
+                                t,
+                                " · "
+                            )
+                        )
+                    )
+            - conListHeadRow:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  Height: =36
+                  FillPortions: =0
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  Visible: |-
+                    =CountRows(
+                        Filter(
+                            colRequests,
+                            IsBlank(Trim(txtListSearch.Text))
+                                || Trim(txtListSearch.Text) in Number
+                                || Trim(txtListSearch.Text) in Subject
+                                || Trim(txtListSearch.Text) in Requester
+                                || Trim(txtListSearch.Text) in Recipient,
+                            IsBlank(ddListStatus.Selected.Value) || ddListStatus.Selected.Value = "All statuses" || Status = ddListStatus.Selected.Value,
+                            IsBlank(ddListTemplate.Selected.Value) || ddListTemplate.Selected.Value = "All templates" || Template = ddListTemplate.Selected.Value,
+                            !tglListOverdue.Checked || IsOverdue(DueDate, Status)
+                        )
+                    ) > 0
+                Children:
+                  - lblListHeadNumber:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Request"
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrTextSecondary
+                        Height: =20
+                        Width: =96
+                        FillPortions: =0
+                        Wrap: =false
+                        AccessibleLabel: ="Request"
+                  - lblListHeadSubject:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Subject"
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrTextSecondary
+                        Height: =20
+                        FillPortions: =3
+                        LayoutMinWidth: =0
+                        Wrap: =false
+                        AccessibleLabel: ="Subject"
+                  - lblListHeadStatus:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Status"
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrTextSecondary
+                        Height: =20
+                        Width: =150
+                        FillPortions: =0
+                        Wrap: =false
+                        AccessibleLabel: ="Status"
+                  - lblListHeadRecipient:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Recipient"
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrTextSecondary
+                        Height: =20
+                        FillPortions: =2
+                        LayoutMinWidth: =0
+                        Wrap: =false
+                        AccessibleLabel: ="Recipient"
+                  - lblListHeadDue:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Due"
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrTextSecondary
+                        Height: =20
+                        Width: =110
+                        FillPortions: =0
+                        Wrap: =false
+                        AccessibleLabel: ="Due"
+                  - lblListHeadPriority:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: ="Priority"
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrTextSecondary
+                        Height: =20
+                        Width: =80
+                        FillPortions: =0
+                        Wrap: =false
+                        AccessibleLabel: ="Priority"
+                  - lblListHeadOpen:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Text: =""
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrTextSecondary
+                        Height: =20
+                        Width: =72
+                        FillPortions: =0
+                        Wrap: =false
+            - galListRows:
+                Control: Gallery
+                Variant: Vertical
+                Properties:
+                  Items: |-
+                    =SortByColumns(
+                        Filter(
+                            colRequests,
+                            IsBlank(Trim(txtListSearch.Text))
+                                || Trim(txtListSearch.Text) in Number
+                                || Trim(txtListSearch.Text) in Subject
+                                || Trim(txtListSearch.Text) in Requester
+                                || Trim(txtListSearch.Text) in Recipient,
+                            IsBlank(ddListStatus.Selected.Value) || ddListStatus.Selected.Value = "All statuses" || Status = ddListStatus.Selected.Value,
+                            IsBlank(ddListTemplate.Selected.Value) || ddListTemplate.Selected.Value = "All templates" || Template = ddListTemplate.Selected.Value,
+                            !tglListOverdue.Checked || IsOverdue(DueDate, Status)
+                        ),
+                        "DueDate",
+                        SortOrder.Ascending
+                    )
+                  TemplateSize: =72
+                  TemplatePadding: =0
+                  Height: |-
+                    =CountRows(
+                        Filter(
+                            colRequests,
+                            IsBlank(Trim(txtListSearch.Text))
+                                || Trim(txtListSearch.Text) in Number
+                                || Trim(txtListSearch.Text) in Subject
+                                || Trim(txtListSearch.Text) in Requester
+                                || Trim(txtListSearch.Text) in Recipient,
+                            IsBlank(ddListStatus.Selected.Value) || ddListStatus.Selected.Value = "All statuses" || Status = ddListStatus.Selected.Value,
+                            IsBlank(ddListTemplate.Selected.Value) || ddListTemplate.Selected.Value = "All templates" || Template = ddListTemplate.Selected.Value,
+                            !tglListOverdue.Checked || IsOverdue(DueDate, Status)
+                        )
+                    ) * 72
+                  Visible: |-
+                    =CountRows(
+                        Filter(
+                            colRequests,
+                            IsBlank(Trim(txtListSearch.Text))
+                                || Trim(txtListSearch.Text) in Number
+                                || Trim(txtListSearch.Text) in Subject
+                                || Trim(txtListSearch.Text) in Requester
+                                || Trim(txtListSearch.Text) in Recipient,
+                            IsBlank(ddListStatus.Selected.Value) || ddListStatus.Selected.Value = "All statuses" || Status = ddListStatus.Selected.Value,
+                            IsBlank(ddListTemplate.Selected.Value) || ddListTemplate.Selected.Value = "All templates" || Template = ddListTemplate.Selected.Value,
+                            !tglListOverdue.Checked || IsOverdue(DueDate, Status)
+                        )
+                    ) > 0
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  FillPortions: =0
+                  ShowScrollbar: =false
+                  Selectable: =false
+                  Fill: =ClrSurface
+                  BorderColor: =ClrBorder
+                  BorderThickness: =1
+                  TabIndex: =0
+                  AccessibleLabel: ="Briefing requests"
+                Children:
+                  - conListRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        Width: =Parent.TemplateWidth
+                        Height: =Parent.TemplateHeight
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        PaddingTop: =12
+                        PaddingBottom: =12
+                        LayoutGap: =8
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        Fill: =ClrSurface
+                        BorderColor: =ClrBorder
+                        BorderThickness: =1
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblListRowNumber:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Text: =ThisItem.Number
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrAccent
+                              Width: =96
+                              Height: =20
+                              FillPortions: =0
+                              Wrap: =false
+                              AccessibleLabel: ="Request " & ThisItem.Number
+                        - conListRowSubject:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              FillPortions: =3
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              Height: =44
+                              LayoutGap: =2
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                            Children:
+                              - lblListRowSubject:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Text: =ThisItem.Subject
+                                    Size: =14
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ClrText
+                                    Height: =22
+                                    FillPortions: =0
+                                    Wrap: =false
+                                    AccessibleLabel: ="Open " & ThisItem.Number & " " & ThisItem.Subject
+                                    OnSelect: |-
+                                      =Set(varSelected, LookUp(colRequests, Id = ThisItem.Id));
+                                      Navigate(DetailScreen, ScreenTransition.None)
+                              - lblListRowMeta:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Text: =ThisItem.Template & " · requested by " & ThisItem.Requester
+                                    Size: =12
+                                    Color: =ClrTextSecondary
+                                    Height: =18
+                                    FillPortions: =0
+                                    Wrap: =false
+                                    AccessibleLabel: =Self.Text
+                        - bdgListRowStatus:
+                            Control: ModernBadge
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Content: =ThisItem.Status
+                              Fill: =StatusBg(ThisItem.Status)
+                              BorderColor: =StatusBg(ThisItem.Status)
+                              Color: =StatusFg(ThisItem.Status)
+                              Appearance: =BadgeAppearance.Tint
+                              Shape: =BadgeShape.Rounded
+                              Size: =12
+                              Width: =150
+                              Height: =24
+                              FillPortions: =0
+                              AccessibleLabel: ="Status " & ThisItem.Status
+                        - lblListRowRecipient:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Text: =ThisItem.Recipient & Char(10) & ThisItem.RecipientTitle
+                              Size: =12
+                              Color: =ClrText
+                              Wrap: =true
+                              Height: =40
+                              FillPortions: =2
+                              LayoutMinWidth: =0
+                              AccessibleLabel: ="Recipient " & ThisItem.Recipient & ", " & ThisItem.RecipientTitle
+                        - lblListRowDue:
+                            Control: ModernText
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Text: =If(IsBlank(ThisItem.DueDate), "No due date", Text(ThisItem.DueDate, "d mmm yyyy")) & If(IsOverdue(ThisItem.DueDate, ThisItem.Status), Char(10) & "Overdue", "")
+                              Color: =If(IsOverdue(ThisItem.DueDate, ThisItem.Status), ClrRed, ClrText)
+                              FontWeight: =If(IsOverdue(ThisItem.DueDate, ThisItem.Status), FontWeight.Semibold, FontWeight.Normal)
+                              Size: =12
+                              Wrap: =true
+                              Width: =110
+                              Height: =40
+                              FillPortions: =0
+                              AccessibleLabel: ="Due " & Self.Text
+                        - bdgListRowPriority:
+                            Control: ModernBadge
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Content: =ThisItem.Priority
+                              Fill: =PriorityBg(ThisItem.Priority)
+                              BorderColor: =PriorityBg(ThisItem.Priority)
+                              Color: =PriorityFg(ThisItem.Priority)
+                              Appearance: =BadgeAppearance.Tint
+                              Shape: =BadgeShape.Rounded
+                              Size: =12
+                              Width: =80
+                              Height: =24
+                              FillPortions: =0
+                              AccessibleLabel: ="Priority " & ThisItem.Priority
+                        - btnListRowOpen:
+                            Control: ModernButton
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              Text: ="Open"
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =ClrAccent
+                              BasePaletteColor: =ClrAccent
+                              Width: =72
+                              Height: =32
+                              FillPortions: =0
+                              AccessibleLabel: ="Open " & ThisItem.Number & " " & ThisItem.Subject
+                              OnSelect: |-
+                                =Set(varSelected, LookUp(colRequests, Id = ThisItem.Id));
+                                Navigate(DetailScreen, ScreenTransition.None)
+            - lblListEmpty:
+                Control: ModernText
+                Properties:
+                  Visible: |-
+                    =CountRows(
+                        Filter(
+                            colRequests,
+                            IsBlank(Trim(txtListSearch.Text))
+                                || Trim(txtListSearch.Text) in Number
+                                || Trim(txtListSearch.Text) in Subject
+                                || Trim(txtListSearch.Text) in Requester
+                                || Trim(txtListSearch.Text) in Recipient,
+                            IsBlank(ddListStatus.Selected.Value) || ddListStatus.Selected.Value = "All statuses" || Status = ddListStatus.Selected.Value,
+                            IsBlank(ddListTemplate.Selected.Value) || ddListTemplate.Selected.Value = "All templates" || Template = ddListTemplate.Selected.Value,
+                            !tglListOverdue.Checked || IsOverdue(DueDate, Status)
+                        )
+                    ) = 0
+                  Text: =If(CountRows(colRequests) = 0, "No briefing requests yet.", "No requests match these filters. Select Clear filters to see all requests.")
+                  Size: =14
+                  Color: =ClrTextSecondary
+                  Align: =Align.Center
+                  AutoHeight: =true
+                  Wrap: =true
+                  PaddingTop: =32
+                  PaddingBottom: =32
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  FillPortions: =0
+                  Fill: =ClrSurface
+                  BorderColor: =ClrBorder
+                  BorderThickness: =1
+                  AccessibleLabel: =Self.Text

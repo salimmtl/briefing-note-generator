@@ -1,0 +1,645 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{519f95ce-56e8-448a-8b20-542e2baaba6b}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="Request" id="{69259B16-2630-4B8B-AC45-159ED8535F14}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Request" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Briefing request" id="{25EF9DDD-E876-46A2-B1F2-3EDB87636EDA}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="Briefing request" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{CF206299-27CE-40B9-B1D9-0F9632B17A65}" showlabel="true">
+                        <labels>
+                          <label description="Subject" languagecode="1033" />
+                        </labels>
+                        <control id="brn_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_name" disabled="false" />
+                      </cell>
+                      <cell id="{16EDFF5B-0887-4AAC-904D-02E4B5070256}" showlabel="true">
+                        <labels>
+                          <label description="Request ID" languagecode="1033" />
+                        </labels>
+                        <control id="brn_requestnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_requestnumber" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7A8C7EEE-2CA9-49CE-B54E-DCA99954F5FD}" showlabel="true">
+                        <labels>
+                          <label description="Status" languagecode="1033" />
+                        </labels>
+                        <control id="brn_status" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_status" disabled="false" />
+                      </cell>
+                      <cell id="{A4563A68-964D-487E-9E0F-DDEBA967267F}" showlabel="true">
+                        <labels>
+                          <label description="Briefing Profile" languagecode="1033" />
+                        </labels>
+                        <control id="brn_profileid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="brn_profileid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{56EF3B83-7A75-47E3-B202-709D283525CF}" showlabel="true">
+                        <labels>
+                          <label description="Note Template" languagecode="1033" />
+                        </labels>
+                        <control id="brn_templateid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="brn_templateid" disabled="false" />
+                      </cell>
+                      <cell id="{1C02B672-69BD-491C-A38E-B69AC34FD027}" showlabel="true">
+                        <labels>
+                          <label description="Intake Channel" languagecode="1033" />
+                        </labels>
+                        <control id="brn_intakechannel" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_intakechannel" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="People" id="{AD4092A7-6D4F-48E8-886E-FF235E832035}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="People" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{6CA8D095-41F0-48B6-9104-6F735156B36E}" showlabel="true">
+                        <labels>
+                          <label description="Requester Name" languagecode="1033" />
+                        </labels>
+                        <control id="brn_requestername" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_requestername" disabled="false" />
+                      </cell>
+                      <cell id="{537E4789-54A2-4FC3-A636-116FE9129742}" showlabel="true">
+                        <labels>
+                          <label description="Requester Email" languagecode="1033" />
+                        </labels>
+                        <control id="brn_requesteremail" classid="{ADA2203E-B4CD-49be-9DDF-234642B43B52}" datafieldname="brn_requesteremail" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1037D687-4726-4E15-B6DE-AC12E5DCD59A}" showlabel="true">
+                        <labels>
+                          <label description="Recipient Name" languagecode="1033" />
+                        </labels>
+                        <control id="brn_recipientname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_recipientname" disabled="false" />
+                      </cell>
+                      <cell id="{BDB52C05-CEBA-4F89-97AF-7A8C1805149B}" showlabel="true">
+                        <labels>
+                          <label description="Recipient Title" languagecode="1033" />
+                        </labels>
+                        <control id="brn_recipienttitle" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_recipienttitle" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9F9AACA3-8240-4447-B1B5-27E4D5F5A4A7}" showlabel="true">
+                        <labels>
+                          <label description="Recipient Email" languagecode="1033" />
+                        </labels>
+                        <control id="brn_recipientemail" classid="{ADA2203E-B4CD-49be-9DDF-234642B43B52}" datafieldname="brn_recipientemail" disabled="false" />
+                      </cell>
+                      <cell id="{8ED85C00-DE97-45D4-90CD-6B334775CCB4}" showlabel="true">
+                        <labels>
+                          <label description="Reviewer Email" languagecode="1033" />
+                        </labels>
+                        <control id="brn_revieweremail" classid="{ADA2203E-B4CD-49be-9DDF-234642B43B52}" datafieldname="brn_revieweremail" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Purpose" id="{29F7AFCB-0EB3-496D-A8A8-457BB2133B84}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Purpose" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0B35DA4E-0D22-405E-A406-7DA5A2E3E759}" showlabel="true" rowspan="4">
+                        <labels>
+                          <label description="Purpose" languagecode="1033" />
+                        </labels>
+                        <control id="brn_purpose" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_purpose" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{2D29F833-1743-49B9-85BF-8C87EA754E26}" showlabel="true" rowspan="6">
+                        <labels>
+                          <label description="Additional Context" languagecode="1033" />
+                        </labels>
+                        <control id="brn_additionalcontext" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_additionalcontext" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="Handling" id="{8B1F8BE7-11EE-445B-BBB1-A22C32ABF923}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="Handling" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{64C10A6E-3E75-4441-9386-DA61B9CF56E4}" showlabel="true">
+                        <labels>
+                          <label description="Language" languagecode="1033" />
+                        </labels>
+                        <control id="brn_language" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_language" disabled="false" />
+                      </cell>
+                      <cell id="{FD5F2518-82F6-4A15-92B4-F498B3B642B9}" showlabel="true">
+                        <labels>
+                          <label description="Classification" languagecode="1033" />
+                        </labels>
+                        <control id="brn_classification" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_classification" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6DEBF2A4-9FA5-430B-9519-D70E58903D7A}" showlabel="true">
+                        <labels>
+                          <label description="Priority" languagecode="1033" />
+                        </labels>
+                        <control id="brn_priority" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_priority" disabled="false" />
+                      </cell>
+                      <cell id="{F397F02F-7854-465F-816A-76F2AEA8A464}" showlabel="true">
+                        <labels>
+                          <label description="Due Date" languagecode="1033" />
+                        </labels>
+                        <control id="brn_duedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_duedate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{F32B6A00-2026-44D6-85EE-9248C78B00E8}" showlabel="true">
+                        <labels>
+                          <label description="Delivery Mode" languagecode="1033" />
+                        </labels>
+                        <control id="brn_deliverymode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_deliverymode" disabled="false" />
+                      </cell>
+                      <cell id="{77944053-EF31-44A2-AB20-74346AEACA99}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Clarifications" id="{E2262079-D203-459B-8A2F-4DB1FA69327A}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Clarifications" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Clarifications" id="{B01A8EAB-EDF1-486E-BB17-1C022AC489DD}" showlabel="false" showbar="false" columns="11">
+                  <labels>
+                    <label description="Clarifications" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{D89F65E9-F66E-48DF-97C1-F63EB0D24FED}" showlabel="true">
+                        <labels>
+                          <label description="Clarification Rounds" languagecode="1033" />
+                        </labels>
+                        <control id="brn_clarificationrounds" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_clarificationrounds" disabled="false" />
+                      </cell>
+                      <cell id="{8F4C82C7-473B-470F-9C84-B4EC47FBC010}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Questions and answers" id="{2D1DFA60-3ADD-44B7-895D-69FBD014A387}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Questions and answers" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{BEE07E93-6251-4601-A175-4EB3A1C48042}" showlabel="true" rowspan="6">
+                        <labels>
+                          <label description="Clarification Questions" languagecode="1033" />
+                        </labels>
+                        <control id="brn_clarificationquestions" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_clarificationquestions" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{ECB5B522-BA4D-4E61-950F-D629A58CB6DC}" showlabel="true" rowspan="8">
+                        <labels>
+                          <label description="Clarification Answers" languagecode="1033" />
+                        </labels>
+                        <control id="brn_clarificationanswers" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_clarificationanswers" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Draft" id="{0DBB68DD-225E-43C5-8A51-E507D29640CB}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Draft" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Draft" id="{0EC3FA1D-E2EA-4941-9101-66C5EBE37A90}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="Draft" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0330C5F2-035A-4909-BA94-324533DF2E2F}" showlabel="true">
+                        <labels>
+                          <label description="Note Title" languagecode="1033" />
+                        </labels>
+                        <control id="brn_notetitle" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_notetitle" disabled="false" />
+                      </cell>
+                      <cell id="{352E9EC0-FF91-4BD8-BB51-8FE28C280488}" showlabel="true">
+                        <labels>
+                          <label description="Draft Confidence" languagecode="1033" />
+                        </labels>
+                        <control id="brn_confidence" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_confidence" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6B8377B9-5C14-466D-91E1-4E7DF2B60267}" showlabel="true">
+                        <labels>
+                          <label description="Word Count" languagecode="1033" />
+                        </labels>
+                        <control id="brn_wordcount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_wordcount" disabled="false" />
+                      </cell>
+                      <cell id="{1EA33346-2F5A-48AE-B3A8-80E2D6B7B41C}" showlabel="true">
+                        <labels>
+                          <label description="Draft Version" languagecode="1033" />
+                        </labels>
+                        <control id="brn_draftversion" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_draftversion" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Key message" id="{C455C298-056F-4A6A-B673-D781DB4ED1FB}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="Key message" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{D32DEAC9-5867-427C-896E-4648C2EB4EB4}" showlabel="true" rowspan="3">
+                        <labels>
+                          <label description="Key Message" languagecode="1033" />
+                        </labels>
+                        <control id="brn_keymessage" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_keymessage" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="Draft sections (JSON)" id="{EEEE1E42-E1B7-4469-9AF1-75D6709B71C3}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Draft sections (JSON)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{F9E16A25-FB2A-4D0A-9D0F-D4D1C16EFC23}" showlabel="true" rowspan="16">
+                        <labels>
+                          <label description="Draft Sections (JSON)" languagecode="1033" />
+                        </labels>
+                        <control id="brn_draftsections" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_draftsections" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="Sources and verification" id="{11C00F0B-2556-4E72-8350-13BE46E94646}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Sources and verification" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{9B4ACBC2-E8E3-4FA1-A750-58C49DFAC131}" showlabel="true" rowspan="4">
+                        <labels>
+                          <label description="Sources Used" languagecode="1033" />
+                        </labels>
+                        <control id="brn_sourcesused" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_sourcesused" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{E74644C2-D031-4715-948E-A6CDDDEC2DB7}" showlabel="true" rowspan="6">
+                        <labels>
+                          <label description="Verification Notes" languagecode="1033" />
+                        </labels>
+                        <control id="brn_verificationnotes" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_verificationnotes" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="Review" id="{C7000828-700D-4888-9353-72B0D94FD1DB}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Review" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3CAB5FA7-F082-4222-8F5A-E7FE4739971C}" showlabel="true" rowspan="6">
+                        <labels>
+                          <label description="Reviewer Comments" languagecode="1033" />
+                        </labels>
+                        <control id="brn_reviewercomments" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_reviewercomments" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Delivery" id="{B8F4C052-5252-46D5-B681-111AD31F6675}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Delivery" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Documents" id="{5C5F41CC-F403-4681-9E5B-80E30D1EAE4F}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Documents" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3A2B8780-D045-416D-8921-841F47C8E5E8}" showlabel="true">
+                        <labels>
+                          <label description="Draft PDF" languagecode="1033" />
+                        </labels>
+                        <control id="brn_draftpdfurl" classid="{71716B6C-711E-476c-8AB8-5D11542BFB47}" datafieldname="brn_draftpdfurl" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{FA266FB3-36CD-410F-9765-0182CF840BF1}" showlabel="true">
+                        <labels>
+                          <label description="Final PDF" languagecode="1033" />
+                        </labels>
+                        <control id="brn_finalpdfurl" classid="{71716B6C-711E-476c-8AB8-5D11542BFB47}" datafieldname="brn_finalpdfurl" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2EF7FE7A-300A-41A6-BCC8-48763DE1EAB4}" showlabel="true">
+                        <labels>
+                          <label description="SharePoint Folder" languagecode="1033" />
+                        </labels>
+                        <control id="brn_sharepointfolderurl" classid="{71716B6C-711E-476c-8AB8-5D11542BFB47}" datafieldname="brn_sharepointfolderurl" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Tracking" id="{A0FA22B9-2F20-4EA0-A66B-613DB0D3F257}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="Tracking" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{E8DB9239-3C29-4952-B4C5-08F2F3ADA34A}" showlabel="true">
+                        <labels>
+                          <label description="Submitted On" languagecode="1033" />
+                        </labels>
+                        <control id="brn_submittedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_submittedon" disabled="false" />
+                      </cell>
+                      <cell id="{AD68B344-EE67-4792-B3E4-37D8B8225BA1}" showlabel="true">
+                        <labels>
+                          <label description="Drafted On" languagecode="1033" />
+                        </labels>
+                        <control id="brn_draftedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_draftedon" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{232D111C-AF05-41B4-ACFE-11B4C5382457}" showlabel="true">
+                        <labels>
+                          <label description="Approved On" languagecode="1033" />
+                        </labels>
+                        <control id="brn_approvedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_approvedon" disabled="false" />
+                      </cell>
+                      <cell id="{5D1EB098-08C3-4C4D-A352-A1A9597B23EA}" showlabel="true">
+                        <labels>
+                          <label description="Approved By" languagecode="1033" />
+                        </labels>
+                        <control id="brn_approvedby" classid="{ADA2203E-B4CD-49be-9DDF-234642B43B52}" datafieldname="brn_approvedby" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{729F4055-2CC8-4808-BD2D-62EBF743F09E}" showlabel="true">
+                        <labels>
+                          <label description="Delivered On" languagecode="1033" />
+                        </labels>
+                        <control id="brn_deliveredon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_deliveredon" disabled="false" />
+                      </cell>
+                      <cell id="{6A484EC6-481C-4BA2-B2A3-81C9CF7B2A92}" showlabel="true">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Last error" id="{CD7CCC1D-FD76-4BB5-A17F-8841676835C7}" showlabel="true" showbar="false" columns="1">
+                  <labels>
+                    <label description="Last error" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{9CFFF94E-F5E6-459C-AE46-22A3AD139AF0}" showlabel="true" rowspan="4">
+                        <labels>
+                          <label description="Last Error" languagecode="1033" />
+                        </labels>
+                        <control id="brn_lasterror" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_lasterror" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Source documents" id="{05B365E5-D3E0-411E-889B-BA06ADB49106}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Source documents" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Source documents" id="{4CCD875C-5BE4-45E7-9BA5-11159A8C7B9C}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="Source documents" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7724597B-874D-44EA-B191-CCFB7FB26366}" showlabel="false" rowspan="10" colspan="1" auto="false">
+                        <labels>
+                          <label description="Source Documents" languagecode="1033" />
+                        </labels>
+                        <control id="brn_sourcedocument_2bf21c" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{55920B4E-6FA7-4707-BBF0-9108CBF83C9D}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>brn_Request_SourceDocument_RequestId</RelationshipName>
+                            <TargetEntityType>brn_sourcedocument</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>10</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Timeline" id="{6254A111-066D-4F50-AE92-864A12F4611A}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Timeline" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Timeline" id="{B717BA0A-E2E9-4B13-B1D0-A0559850E8AE}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="Timeline" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{B0D60152-759B-496F-BE40-1A5B61951ACC}" showlabel="false" rowspan="14" colspan="1" auto="false">
+                        <labels>
+                          <label description="Briefing Activities" languagecode="1033" />
+                        </labels>
+                        <control id="brn_activity_bd8157" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{ECE4EF94-20A2-4326-896E-BBCDFD74F258}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>brn_Request_Activity_RequestId</RelationshipName>
+                            <TargetEntityType>brn_activity</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>10</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{8E745DEF-368B-49D1-8345-F7FCC742A1C5}" celllabelposition="Top" columns="1111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{D66863EC-CDFB-4526-AF6F-1E13F3955D11}" showlabel="true">
+              <labels>
+                <label description="Status" languagecode="1033" />
+              </labels>
+              <control id="header_brn_status" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_status" disabled="false" />
+            </cell>
+            <cell id="{A52CA511-AC70-4A6F-B378-72FAA65BDF9D}" showlabel="true">
+              <labels>
+                <label description="Priority" languagecode="1033" />
+              </labels>
+              <control id="header_brn_priority" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_priority" disabled="false" />
+            </cell>
+            <cell id="{348D7817-1BAF-4642-9C7E-2221F43E7D0F}" showlabel="true">
+              <labels>
+                <label description="Due Date" languagecode="1033" />
+              </labels>
+              <control id="header_brn_duedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_duedate" disabled="false" />
+            </cell>
+            <cell id="{8AC91D92-92A1-40DB-A8BC-F4E774BBE612}" showlabel="true">
+              <labels>
+                <label description="Owner" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{98B7DB1B-8D37-4DD2-B5E0-C5E02A5A046C}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows />
+      </footer>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Briefing Request" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

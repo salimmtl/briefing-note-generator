@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{2d2c53a3-9802-469e-97ae-f5e037c22d62}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="brn_name" select="1" icon="1" preview="1">
+        <row name="result" id="brn_templateid">
+          <cell name="brn_name" width="260" />
+          <cell name="brn_code" width="80" />
+          <cell name="brn_notetype" width="220" />
+          <cell name="brn_maxwords" width="90" />
+          <cell name="brn_sortorder" width="80" />
+          <cell name="brn_isactive" width="70" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="brn_template">
+          <attribute name="brn_name" />
+          <attribute name="brn_code" />
+          <attribute name="brn_notetype" />
+          <attribute name="brn_maxwords" />
+          <attribute name="brn_sortorder" />
+          <attribute name="brn_isactive" />
+          <attribute name="brn_templateid" />
+          <order attribute="brn_sortorder" descending="false" />
+          <order attribute="brn_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Note Templates" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,3 @@
+connectionReferences:
+  - connectionReferenceLogicalName: brn_agents.cr.shared_commondataserviceforapps.dvmcp
+    connectorId: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps

@@ -1,0 +1,11 @@
+<dvtablesearch dvtablesearchid="1563cfca-56dd-f111-84ea-002248d512d5">
+  <appmoduleuniquename>brn_BriefingNotesHub</appmoduleuniquename>
+  <iscustomizable>1</iscustomizable>
+  <m365appmoduleid>
+    <uniquename>brn_BriefingNotesHub</uniquename>
+  </m365appmoduleid>
+  <name>M365_Primary_model_brn_BriefingNotesHub</name>
+  <searchtype>0</searchtype>
+  <statecode>1</statecode>
+  <statuscode>2</statuscode>
+</dvtablesearch>

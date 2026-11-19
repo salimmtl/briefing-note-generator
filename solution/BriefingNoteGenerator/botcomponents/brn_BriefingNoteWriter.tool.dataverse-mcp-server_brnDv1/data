@@ -1,0 +1,9 @@
+kind: McpTool
+authMode: Invoker
+connectionReference: brn_agents.cr.shared_commondataserviceforapps.dvmcp
+connectorId: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps
+operationId: InvokeMCP
+allowedTools:
+  - read_query
+  - describe
+  - update_record

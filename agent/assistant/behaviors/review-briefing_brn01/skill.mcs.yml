@@ -1,0 +1,5 @@
+mcs.metadata:
+  componentName: review-briefing
+  description: Lets the reviewer of a briefing request read the draft and approve it or request a revision with comments.
+  schemaName: brn_BriefingAssistant.skill.review-briefing_brn01
+kind: InlineAgentSkill

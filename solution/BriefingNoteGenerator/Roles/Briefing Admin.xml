@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{055c5547-55dd-f111-84e8-7c1e5240ac7b}" name="Briefing Admin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendbrn_Activity" level="Global" />
+    <RolePrivilege name="prvAppendbrn_Profile" level="Global" />
+    <RolePrivilege name="prvAppendbrn_Request" level="Global" />
+    <RolePrivilege name="prvAppendbrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvAppendbrn_Template" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Activity" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Profile" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Request" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Template" level="Global" />
+    <RolePrivilege name="prvAssignbrn_Request" level="Global" />
+    <RolePrivilege name="prvAssignbrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Activity" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Profile" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Request" level="Global" />
+    <RolePrivilege name="prvCreatebrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Template" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvDeletebrn_Activity" level="Global" />
+    <RolePrivilege name="prvDeletebrn_Profile" level="Global" />
+    <RolePrivilege name="prvDeletebrn_Request" level="Global" />
+    <RolePrivilege name="prvDeletebrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvDeletebrn_Template" level="Global" />
+    <RolePrivilege name="prvReadbrn_Activity" level="Global" />
+    <RolePrivilege name="prvReadbrn_Profile" level="Global" />
+    <RolePrivilege name="prvReadbrn_Request" level="Global" />
+    <RolePrivilege name="prvReadbrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvReadbrn_Template" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvSharebrn_Request" level="Global" />
+    <RolePrivilege name="prvSharebrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvWritebrn_Activity" level="Global" />
+    <RolePrivilege name="prvWritebrn_Profile" level="Global" />
+    <RolePrivilege name="prvWritebrn_Request" level="Global" />
+    <RolePrivilege name="prvWritebrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvWritebrn_Template" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

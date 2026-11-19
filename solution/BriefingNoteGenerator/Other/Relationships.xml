@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityRelationships xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <EntityRelationship Name="brn_Profile_Request_ProfileId" />
+  <EntityRelationship Name="brn_Request_Activity_RequestId" />
+  <EntityRelationship Name="brn_Request_SourceDocument_RequestId" />
+  <EntityRelationship Name="brn_Template_Request_TemplateId" />
+  <EntityRelationship Name="business_unit_brn_request" />
+  <EntityRelationship Name="business_unit_brn_sourcedocument" />
+  <EntityRelationship Name="FileAttachment_brn_SourceDocument_brn_File" />
+  <EntityRelationship Name="lk_brn_activity_createdby" />
+  <EntityRelationship Name="lk_brn_activity_modifiedby" />
+  <EntityRelationship Name="lk_brn_profile_createdby" />
+  <EntityRelationship Name="lk_brn_profile_modifiedby" />
+  <EntityRelationship Name="lk_brn_request_createdby" />
+  <EntityRelationship Name="lk_brn_request_modifiedby" />
+  <EntityRelationship Name="lk_brn_sourcedocument_createdby" />
+  <EntityRelationship Name="lk_brn_sourcedocument_modifiedby" />
+  <EntityRelationship Name="lk_brn_template_createdby" />
+  <EntityRelationship Name="lk_brn_template_modifiedby" />
+  <EntityRelationship Name="organization_brn_activity" />
+  <EntityRelationship Name="organization_brn_profile" />
+  <EntityRelationship Name="organization_brn_template" />
+  <EntityRelationship Name="owner_brn_request" />
+  <EntityRelationship Name="owner_brn_sourcedocument" />
+  <EntityRelationship Name="team_brn_request" />
+  <EntityRelationship Name="team_brn_sourcedocument" />
+  <EntityRelationship Name="user_brn_request" />
+  <EntityRelationship Name="user_brn_sourcedocument" />
+</EntityRelationships>

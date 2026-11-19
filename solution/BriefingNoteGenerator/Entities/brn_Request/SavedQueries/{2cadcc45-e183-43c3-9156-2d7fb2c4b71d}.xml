@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{2cadcc45-e183-43c3-9156-2d7fb2c4b71d}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="brn_name" select="1" icon="1" preview="1">
+        <row name="result" id="brn_requestid">
+          <cell name="brn_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="brn_request">
+          <attribute name="brn_requestid" />
+          <attribute name="brn_name" />
+          <attribute name="createdon" />
+          <order attribute="brn_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="1" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Inactive Briefing Requests" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

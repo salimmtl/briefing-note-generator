@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="brn_StudioUrl">
+  <defaultvalue>https://apps.powerapps.com/</defaultvalue>
+  <description default="Code app URL used in notification links (play link).">
+    <label description="Code app URL used in notification links (play link)." languagecode="1033" />
+  </description>
+  <displayname default="Briefing Studio URL">
+    <label description="Briefing Studio URL" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

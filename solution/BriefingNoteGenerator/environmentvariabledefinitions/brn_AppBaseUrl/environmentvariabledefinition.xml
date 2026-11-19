@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="brn_AppBaseUrl">
+  <defaultvalue>https://make.powerapps.com/</defaultvalue>
+  <description default="Model-driven app URL used in notification links (…/main.aspx?appid=&lt;id&gt;).">
+    <label description="Model-driven app URL used in notification links (…/main.aspx?appid=&lt;id&gt;)." languagecode="1033" />
+  </description>
+  <displayname default="Briefing Notes Hub URL">
+    <label description="Briefing Notes Hub URL" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

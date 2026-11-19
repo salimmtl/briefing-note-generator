@@ -1,0 +1,5 @@
+mcs.metadata:
+  componentName: draft-briefing-note
+  description: Drafts a cited briefing note from a briefing request's source documents, profile and template, or writes clarification questions to the request when essential information is missing.
+  schemaName: brn_BriefingNoteWriter.skill.draft-briefing-note_brn01
+kind: InlineAgentSkill

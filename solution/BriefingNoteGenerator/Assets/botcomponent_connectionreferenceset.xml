@@ -1,0 +1,11 @@
+<botcomponent_connectionreferenceset>
+  <botcomponent_connectionreference botcomponentid.schemaname="brn_BriefingAssistant.tool.dataverse-mcp-server_brnDv1" connectionreferenceid.connectionreferencelogicalname="brn_agents.cr.shared_commondataserviceforapps.dvmcp">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+  <botcomponent_connectionreference botcomponentid.schemaname="brn_BriefingAssistant.tool.office365-users-get-my-profile_brnPf1" connectionreferenceid.connectionreferencelogicalname="brn_agents.cr.shared_office365users.profile">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+  <botcomponent_connectionreference botcomponentid.schemaname="brn_BriefingNoteWriter.tool.dataverse-mcp-server_brnDv1" connectionreferenceid.connectionreferencelogicalname="brn_agents.cr.shared_commondataserviceforapps.dvmcp">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+</botcomponent_connectionreferenceset>

@@ -1,0 +1,11 @@
+<botcomponent schemaname="brn_BriefingAssistant.skill.review-briefing_brn01">
+  <componenttype>9</componenttype>
+  <description>Lets the reviewer of a briefing request read the draft and approve it or request a revision with comments.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>review-briefing</name>
+  <parentbotid>
+    <schemaname>brn_BriefingAssistant</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

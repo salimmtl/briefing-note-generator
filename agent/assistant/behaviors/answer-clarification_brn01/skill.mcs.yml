@@ -1,0 +1,5 @@
+mcs.metadata:
+  componentName: answer-clarification
+  description: Shows the Briefing Note Writer's questions on a request in Needs Info, collects the requester's answers and sends them back so the note is re-drafted.
+  schemaName: brn_BriefingAssistant.skill.answer-clarification_brn01
+kind: InlineAgentSkill

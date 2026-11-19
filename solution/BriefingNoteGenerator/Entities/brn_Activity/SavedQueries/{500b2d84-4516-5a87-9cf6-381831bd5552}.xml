@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{500b2d84-4516-5a87-9cf6-381831bd5552}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="brn_name" select="1" icon="1" preview="1">
+        <row name="result" id="brn_activityid">
+          <cell name="brn_name" width="300" />
+          <cell name="brn_actor" width="160" />
+          <cell name="brn_activitytype" width="160" />
+          <cell name="brn_startedon" width="140" />
+          <cell name="brn_durationseconds" width="90" />
+          <cell name="brn_requestid" width="200" />
+          <cell name="createdon" width="140" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="brn_activity">
+          <attribute name="brn_name" />
+          <attribute name="brn_actor" />
+          <attribute name="brn_activitytype" />
+          <attribute name="brn_startedon" />
+          <attribute name="brn_durationseconds" />
+          <attribute name="brn_requestid" />
+          <attribute name="createdon" />
+          <attribute name="brn_activityid" />
+          <order attribute="brn_requestid" descending="false" />
+          <order attribute="createdon" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Activities by Request" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

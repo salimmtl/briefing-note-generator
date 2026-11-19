@@ -1,0 +1,94 @@
+{
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "brn_AppBaseUrl",
+      "Value": "",
+      "DefaultValue": "https://make.powerapps.com/",
+      "Name": {
+        "Default": "Briefing Notes Hub URL",
+        "ByLcid": {
+          "1033": "Briefing Notes Hub URL"
+        }
+      },
+      "TypeId": 100000000,
+      "Description": {
+        "Default": "Model-driven app URL used in notification links (…/main.aspx?appid=<id>).",
+        "ByLcid": {
+          "1033": "Model-driven app URL used in notification links (…/main.aspx?appid=<id>)."
+        }
+      },
+      "IsRequired": false
+    },
+    {
+      "SchemaName": "brn_StudioUrl",
+      "Value": "",
+      "DefaultValue": "https://apps.powerapps.com/",
+      "Name": {
+        "Default": "Briefing Studio URL",
+        "ByLcid": {
+          "1033": "Briefing Studio URL"
+        }
+      },
+      "TypeId": 100000000,
+      "Description": {
+        "Default": "Code app URL used in notification links (play link).",
+        "ByLcid": {
+          "1033": "Code app URL used in notification links (play link)."
+        }
+      },
+      "IsRequired": false
+    }
+  ],
+  "ConnectionReferences": [
+    {
+      "LogicalName": "brn_agents.cr.shared_commondataserviceforapps.dvmcp",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "brn_agents.cr.shared_office365users.profile",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_office365users"
+    },
+    {
+      "LogicalName": "brn_flows.cr.shared_agentnode",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_agentnode"
+    },
+    {
+      "LogicalName": "brn_flows.cr.shared_commondataserviceforapps",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "brn_flows.cr.shared_office365",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+    },
+    {
+      "LogicalName": "brn_flows.cr.shared_onedriveforbusiness",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
+    },
+    {
+      "LogicalName": "brn_flows.cr.shared_sharepointonline",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+    },
+    {
+      "LogicalName": "brn_flows.cr.shared_teams",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+    }
+  ],
+  "CopilotAgents": [
+    {
+      "AadGroupId": "00000000-0000-0000-0000-000000000000",
+      "Name": "brn_BriefingAssistant"
+    },
+    {
+      "AadGroupId": "00000000-0000-0000-0000-000000000000",
+      "Name": "brn_BriefingNoteWriter"
+    }
+  ]
+}

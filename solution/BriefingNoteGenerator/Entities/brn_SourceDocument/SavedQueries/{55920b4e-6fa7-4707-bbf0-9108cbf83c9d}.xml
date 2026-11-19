@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{55920b4e-6fa7-4707-bbf0-9108cbf83c9d}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="brn_name" select="1" icon="1" preview="1">
+        <row name="result" id="brn_sourcedocumentid">
+          <cell name="brn_sourcelabel" width="70" />
+          <cell name="brn_name" width="260" />
+          <cell name="brn_documenttype" width="160" />
+          <cell name="brn_extractionstatus" width="120" />
+          <cell name="brn_pagecount" width="70" />
+          <cell name="brn_charactercount" width="90" />
+          <cell name="createdon" width="130" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="brn_sourcedocument">
+          <attribute name="brn_sourcelabel" />
+          <attribute name="brn_name" />
+          <attribute name="brn_documenttype" />
+          <attribute name="brn_extractionstatus" />
+          <attribute name="brn_pagecount" />
+          <attribute name="brn_charactercount" />
+          <attribute name="createdon" />
+          <attribute name="brn_sourcedocumentid" />
+          <order attribute="brn_sourcelabel" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Source Document Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

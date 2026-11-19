@@ -1,0 +1,8 @@
+mcs.metadata:
+  componentName: Get my profile (V2)
+  description: "Returns the signed-in user Microsoft 365 profile. Use it once at the start to get the requester name and work email (userPrincipalName, or mail if empty)."
+kind: ConnectorTool
+authMode: Invoker
+connectionReference: brn_agents.cr.shared_office365users.profile
+connectorId: /providers/Microsoft.PowerApps/apis/shared_office365users
+operationId: MyProfile_V2

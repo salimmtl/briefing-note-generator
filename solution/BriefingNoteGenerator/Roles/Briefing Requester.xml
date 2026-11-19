@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{463ff643-55dd-f111-84e8-7c1e52067fec}" name="Briefing Requester" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendbrn_Activity" level="Global" />
+    <RolePrivilege name="prvAppendbrn_Request" level="Basic" />
+    <RolePrivilege name="prvAppendbrn_SourceDocument" level="Basic" />
+    <RolePrivilege name="prvAppendTobrn_Profile" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Request" level="Basic" />
+    <RolePrivilege name="prvAppendTobrn_SourceDocument" level="Basic" />
+    <RolePrivilege name="prvAppendTobrn_Template" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Activity" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Request" level="Basic" />
+    <RolePrivilege name="prvCreatebrn_SourceDocument" level="Basic" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadbrn_Activity" level="Global" />
+    <RolePrivilege name="prvReadbrn_Profile" level="Global" />
+    <RolePrivilege name="prvReadbrn_Request" level="Basic" />
+    <RolePrivilege name="prvReadbrn_SourceDocument" level="Basic" />
+    <RolePrivilege name="prvReadbrn_Template" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWritebrn_Request" level="Basic" />
+    <RolePrivilege name="prvWritebrn_SourceDocument" level="Basic" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

@@ -1,0 +1,11 @@
+<botcomponent schemaname="brn_BriefingNoteWriter.tool.dataverse-mcp-server_brnDv1">
+  <componenttype>9</componenttype>
+  <description>Reads briefing requests, source documents, profiles and templates (brn_*) and saves the draft or the clarification questions. Use read_query to read and update_record to write.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Dataverse MCP Server</name>
+  <parentbotid>
+    <schemaname>brn_BriefingNoteWriter</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

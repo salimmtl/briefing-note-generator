@@ -1,0 +1,863 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "brn_flows.cr.shared_commondataserviceforapps"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "brn_flows.cr.shared_sharepointonline"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      },
+      "shared_teams": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "brn_flows.cr.shared_teams"
+        },
+        "api": {
+          "name": "shared_teams"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "brn_flows.cr.shared_office365"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      },
+      "shared_agentnode": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "brn_flows.cr.shared_agentnode"
+        },
+        "api": {
+          "name": "shared_agentnode"
+        }
+      },
+      "shared_onedriveforbusiness": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "brn_flows.cr.shared_onedriveforbusiness"
+        },
+        "api": {
+          "name": "shared_onedriveforbusiness"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "brn_AppBaseUrl (brn_AppBaseUrl)": {
+          "defaultValue": "",
+          "type": "String",
+          "metadata": {
+            "schemaName": "brn_AppBaseUrl",
+            "description": "Model-driven app URL for links."
+          }
+        },
+        "brn_StudioUrl (brn_StudioUrl)": {
+          "defaultValue": "",
+          "type": "String",
+          "metadata": {
+            "schemaName": "brn_StudioUrl",
+            "description": "Code app URL for links."
+          }
+        }
+      },
+      "triggers": {
+        "When_status_changes": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "brn_request",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "brn_status",
+              "subscriptionRequest/filterexpression": "(brn_status eq 743800001 or brn_status eq 743800004 or brn_status eq 743800006)"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Init_Start_Time": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "startTime",
+                "type": "string",
+                "value": "@utcNow()"
+              }
+            ]
+          },
+          "runAfter": {}
+        },
+        "Try": {
+          "type": "Scope",
+          "actions": {
+            "Claim": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord"
+                },
+                "parameters": {
+                  "entityName": "brn_requests",
+                  "recordId": "@triggerOutputs()?['body/brn_requestid']",
+                  "item/brn_status": 743800002,
+                  "item/brn_lasterror": ""
+                }
+              },
+              "runAfter": {}
+            },
+            "Log_Started": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord"
+                },
+                "parameters": {
+                  "entityName": "brn_activities",
+                  "item/brn_name": "Drafting started (@{if(equals(triggerOutputs()?['body/brn_status'], 743800004), 'clarification answers received', if(equals(triggerOutputs()?['body/brn_status'], 743800006), 'revision requested', 'first draft'))})",
+                  "item/brn_RequestId@odata.bind": "/brn_requests(@{triggerOutputs()?['body/brn_requestid']})",
+                  "item/brn_actor": 743800002,
+                  "item/brn_activitytype": 743800001,
+                  "item/brn_startedon": "@variables('startTime')",
+                  "item/brn_workflowrun": "@{workflow()?['run']?['name']}",
+                  "item/brn_details": ""
+                }
+              },
+              "runAfter": {
+                "Claim": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Run_Briefing_Note_Writer": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_agentnode",
+                  "connectionName": "shared_agentnode",
+                  "operationId": "InvokeAgent_V2"
+                },
+                "parameters": {
+                  "body/agentId": "brn_BriefingNoteWriter",
+                  "body/prompt": "Draft the briefing note for this request.\n- Request id: @{triggerOutputs()?['body/brn_requestid']}\n- Request number: @{triggerOutputs()?['body/brn_requestnumber']}\n- Mode: @{if(equals(triggerOutputs()?['body/brn_status'], 743800004), 'clarification answers received', if(equals(triggerOutputs()?['body/brn_status'], 743800006), 'revision requested', 'first draft'))}\n- Today (UTC): @{formatDateTime(utcNow(), 'yyyy-MM-dd')}\nFollow your draft-briefing-note skill. Either save the draft to the request or save clarification questions, then end with the JSON result. The workflow renders the PDF from what you save.",
+                  "body/outputSchema": {
+                    "type": "object",
+                    "properties": {
+                      "outcome": {
+                        "type": "string",
+                        "description": "draft or needs_info"
+                      },
+                      "requestNumber": {
+                        "type": "string",
+                        "description": "BN-xxxxx"
+                      },
+                      "noteTitle": {
+                        "type": "string",
+                        "description": "Note title (empty for needs_info)"
+                      },
+                      "keyMessage": {
+                        "type": "string",
+                        "description": "Bottom line (empty for needs_info)"
+                      },
+                      "questions": {
+                        "type": "string",
+                        "description": "Questions separated by ' | ' (needs_info only)"
+                      },
+                      "confidence": {
+                        "type": "string",
+                        "description": "Low, Medium or High"
+                      },
+                      "wordCount": {
+                        "type": "integer",
+                        "description": "Words in the note"
+                      },
+                      "draftVersion": {
+                        "type": "integer",
+                        "description": "Draft version saved"
+                      },
+                      "summary": {
+                        "type": "string",
+                        "description": "One or two sentences for the notification"
+                      }
+                    },
+                    "required": [
+                      "outcome",
+                      "requestNumber",
+                      "noteTitle",
+                      "keyMessage",
+                      "questions",
+                      "confidence",
+                      "wordCount",
+                      "draftVersion",
+                      "summary"
+                    ]
+                  }
+                }
+              },
+              "runAfter": {
+                "Log_Started": [
+                  "Succeeded"
+                ]
+              },
+              "limit": {
+                "timeout": "PT40M"
+              }
+            },
+            "Get_Request": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem"
+                },
+                "parameters": {
+                  "entityName": "brn_requests",
+                  "recordId": "@triggerOutputs()?['body/brn_requestid']"
+                }
+              },
+              "runAfter": {
+                "Run_Briefing_Note_Writer": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Still_Drafting": {
+              "type": "If",
+              "runAfter": {
+                "Get_Request": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "not": {
+                  "equals": [
+                    "@body('Get_Request')?['brn_status']",
+                    743800002
+                  ]
+                }
+              },
+              "actions": {
+                "Log_Stopped": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "CreateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "brn_activities",
+                      "item/brn_name": "Drafting stopped: the request is no longer Drafting",
+                      "item/brn_RequestId@odata.bind": "/brn_requests(@{triggerOutputs()?['body/brn_requestid']})",
+                      "item/brn_actor": 743800003,
+                      "item/brn_activitytype": 743800010,
+                      "item/brn_startedon": "@variables('startTime')",
+                      "item/brn_workflowrun": "@{workflow()?['run']?['name']}",
+                      "item/brn_details": "Status found: @{body('Get_Request')?['brn_status@OData.Community.Display.V1.FormattedValue']}. Nothing was written or sent.",
+                      "item/brn_completedon": "@utcNow()",
+                      "item/brn_durationseconds": "@div(sub(ticks(utcNow()), ticks(variables('startTime'))), 10000000)"
+                    }
+                  },
+                  "runAfter": {}
+                },
+                "Stop": {
+                  "type": "Terminate",
+                  "inputs": {
+                    "runStatus": "Succeeded"
+                  },
+                  "runAfter": {
+                    "Log_Stopped": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              }
+            },
+            "List_Active_Profiles": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords"
+                },
+                "parameters": {
+                  "entityName": "brn_profiles",
+                  "$filter": "brn_isactive eq true",
+                  "$orderby": "createdon asc",
+                  "$top": 1
+                }
+              },
+              "runAfter": {
+                "Still_Drafting": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Profile_Id": {
+              "type": "Compose",
+              "inputs": "@coalesce(triggerOutputs()?['body/_brn_profileid_value'], first(outputs('List_Active_Profiles')?['body/value'])?['brn_profileid'])",
+              "runAfter": {
+                "List_Active_Profiles": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Get_Profile": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem"
+                },
+                "parameters": {
+                  "entityName": "brn_profiles",
+                  "recordId": "@outputs('Profile_Id')"
+                }
+              },
+              "runAfter": {
+                "Profile_Id": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Needs_Info_Or_Draft": {
+              "type": "If",
+              "runAfter": {
+                "Get_Profile": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "or": [
+                  {
+                    "equals": [
+                      "@toLower(coalesce(body('Run_Briefing_Note_Writer')?['structuredOutput']?['outcome'], ''))",
+                      "needs_info"
+                    ]
+                  },
+                  {
+                    "and": [
+                      {
+                        "equals": [
+                          "@empty(coalesce(body('Get_Request')?['brn_draftsections'], ''))",
+                          true
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@empty(coalesce(body('Get_Request')?['brn_clarificationquestions'], ''))",
+                          false
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "actions": {
+                "Set_Needs_Info": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "brn_requests",
+                      "recordId": "@triggerOutputs()?['body/brn_requestid']",
+                      "item/brn_status": 743800003,
+                      "item/brn_lasterror": ""
+                    }
+                  },
+                  "runAfter": {}
+                },
+                "Notify_Requester_Questions": {
+                  "type": "Scope",
+                  "actions": {
+                    "Email_Questions": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                          "connectionName": "shared_office365",
+                          "operationId": "SendEmailV2"
+                        },
+                        "parameters": {
+                          "emailMessage/To": "@body('Get_Request')?['brn_requesteremail']",
+                          "emailMessage/Subject": "[@{body('Get_Request')?['brn_requestnumber']}] A question before your briefing note can be drafted",
+                          "emailMessage/Body": "<p>Hello @{coalesce(body('Get_Request')?['brn_requestername'], '')},</p><p>The Briefing Note Writer needs a little more information to draft <b>@{replace(replace(replace(coalesce(body('Get_Request')?['brn_name'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')}</b> for @{coalesce(body('Get_Request')?['brn_recipientname'], 'your leader')}.</p><div style=\"border-left:4px solid #0F6CBD;padding:6px 12px;background:#f7f9fc\">@{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(body('Get_Request')?['brn_clarificationquestions'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</div><p>Answer in Briefing Studio (<i>Your input is needed</i>), or ask the <b>Briefing Assistant</b> in Teams: <i>\"Answer the questions for @{body('Get_Request')?['brn_requestnumber']}\"</i>. Drafting resumes as soon as you answer.</p><p>@{if(empty(parameters('brn_StudioUrl (brn_StudioUrl)')), '', concat('<a href=\"', parameters('brn_StudioUrl (brn_StudioUrl)'), '\">Open in Briefing Studio</a> &nbsp;|&nbsp; '))}<a href=\"@{parameters('brn_AppBaseUrl (brn_AppBaseUrl)')}&pagetype=entityrecord&etn=brn_request&id=@{triggerOutputs()?['body/brn_requestid']}\">Open in Briefing Notes Hub</a></p><p style=\"color:#737373;font-size:9pt\">Sent by the Briefing Note Generator. The note is an AI-assisted draft reviewed by staff.</p>",
+                          "emailMessage/Importance": "Normal"
+                        }
+                      },
+                      "runAfter": {}
+                    },
+                    "Teams_Questions": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                          "connectionName": "shared_teams",
+                          "operationId": "PostMessageToConversation"
+                        },
+                        "parameters": {
+                          "poster": "Flow bot",
+                          "location": "Chat with Flow bot",
+                          "body/recipient": "@body('Get_Request')?['brn_requesteremail']",
+                          "body/messageBody": "<p><b>❓ @{body('Get_Request')?['brn_requestnumber']}: the writer has a question</b></p><p>@{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(body('Get_Request')?['brn_clarificationquestions'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</p><p>Reply in Briefing Studio or ask the Briefing Assistant.</p><p>@{if(empty(parameters('brn_StudioUrl (brn_StudioUrl)')), '', concat('<a href=\"', parameters('brn_StudioUrl (brn_StudioUrl)'), '\">Open in Briefing Studio</a> &nbsp;|&nbsp; '))}<a href=\"@{parameters('brn_AppBaseUrl (brn_AppBaseUrl)')}&pagetype=entityrecord&etn=brn_request&id=@{triggerOutputs()?['body/brn_requestid']}\">Open in Briefing Notes Hub</a></p>"
+                        }
+                      },
+                      "runAfter": {
+                        "Email_Questions": [
+                          "Succeeded",
+                          "Failed",
+                          "Skipped",
+                          "TimedOut"
+                        ]
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Set_Needs_Info": [
+                      "Succeeded"
+                    ]
+                  }
+                },
+                "Log_Questions": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "CreateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "brn_activities",
+                      "item/brn_name": "Clarification requested from the requester",
+                      "item/brn_RequestId@odata.bind": "/brn_requests(@{triggerOutputs()?['body/brn_requestid']})",
+                      "item/brn_actor": 743800002,
+                      "item/brn_activitytype": 743800002,
+                      "item/brn_startedon": "@variables('startTime')",
+                      "item/brn_workflowrun": "@{workflow()?['run']?['name']}",
+                      "item/brn_details": "@{substring(coalesce(body('Get_Request')?['brn_clarificationquestions'], ''), 0, min(3900, length(coalesce(body('Get_Request')?['brn_clarificationquestions'], ''))))}",
+                      "item/brn_completedon": "@utcNow()",
+                      "item/brn_durationseconds": "@div(sub(ticks(utcNow()), ticks(variables('startTime'))), 10000000)"
+                    }
+                  },
+                  "runAfter": {
+                    "Notify_Requester_Questions": [
+                      "Succeeded",
+                      "Failed",
+                      "Skipped",
+                      "TimedOut"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Select_Sections": {
+                    "type": "Select",
+                    "inputs": {
+                      "from": "@json(coalesce(body('Get_Request')?['brn_draftsections'], '[]'))",
+                      "select": "<h2>@{replace(replace(coalesce(item()?['heading'], ''), '&', '&amp;'), '<', '&lt;')}</h2><p>@{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(item()?['body'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</p>"
+                    },
+                    "runAfter": {}
+                  },
+                  "List_Sources": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "ListRecords"
+                      },
+                      "parameters": {
+                        "entityName": "brn_sourcedocuments",
+                        "$filter": "_brn_requestid_value eq @{triggerOutputs()?['body/brn_requestid']}",
+                        "$orderby": "brn_sourcelabel asc"
+                      }
+                    },
+                    "runAfter": {
+                      "Select_Sections": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Select_Sources": {
+                    "type": "Select",
+                    "inputs": {
+                      "from": "@outputs('List_Sources')?['body/value']",
+                      "select": "<tr><td>@{item()?['brn_sourcelabel']}</td><td>@{item()?['brn_name']}</td><td>@{item()?['brn_documenttype@OData.Community.Display.V1.FormattedValue']}</td><td>@{coalesce(item()?['brn_summary'], '')}</td></tr>"
+                    },
+                    "runAfter": {
+                      "List_Sources": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Draft_Html": {
+                    "type": "Compose",
+                    "inputs": "<html><head><meta charset=\"utf-8\"><style>body{font-family:'Segoe UI',Arial,sans-serif;color:#242424;font-size:10.5pt;line-height:1.45;margin:26px}.class{text-align:center;font-weight:700;letter-spacing:2px;font-size:9pt;color:#A4262C;margin:0 0 6px}.rule{border-top:5px solid @{coalesce(body('Get_Profile')?['brn_accentcolor'], '#0F6CBD')};margin:6px 0 12px}.kicker{color:#616161;font-size:9pt;text-transform:uppercase;letter-spacing:1px;margin:0}h1{color:@{coalesce(body('Get_Profile')?['brn_accentcolor'], '#0F6CBD')};font-size:19pt;margin:4px 0 8px}h2{color:@{coalesce(body('Get_Profile')?['brn_accentcolor'], '#0F6CBD')};font-size:12.5pt;margin:18px 0 5px;border-bottom:1px solid #d1d1d1;padding-bottom:3px}table.meta{border-collapse:collapse;width:100%;margin:4px 0 10px}table.meta td{padding:3px 8px 3px 0;font-size:9.5pt;vertical-align:top}table.meta td.k{color:#616161;width:110px}.key{border:1px solid #d1d1d1;border-left:5px solid @{coalesce(body('Get_Profile')?['brn_accentcolor'], '#0F6CBD')};background:#f7f9fc;padding:8px 12px;margin:10px 0}.draft{background:#FFF4CE;border:1px solid #F1C40F;padding:6px 10px;font-size:9pt;margin:0 0 10px}table.src{border-collapse:collapse;width:100%}table.src th,table.src td{border:1px solid #d1d1d1;padding:4px 6px;font-size:8.5pt;text-align:left;vertical-align:top}table.src th{background:#f0f6fc}.foot{margin-top:26px;border-top:1px solid #d1d1d1;padding-top:6px;color:#707070;font-size:8.5pt}</style></head><body><p class=\"class\">@{toUpper(coalesce(body('Get_Request')?['brn_classification@OData.Community.Display.V1.FormattedValue'], 'Unclassified'))}</p><div class=\"rule\"></div><div class=\"draft\"><b>DRAFT v@{body('Get_Request')?['brn_draftversion']}: for review, not for distribution.</b> Confidence: @{coalesce(body('Get_Request')?['brn_confidence@OData.Community.Display.V1.FormattedValue'], 'n/a')}. Check the verification notes before approving.</div><p class=\"kicker\">@{body('Get_Profile')?['brn_name']} &middot; @{coalesce(body('Get_Request')?['_brn_templateid_value@OData.Community.Display.V1.FormattedValue'], 'Briefing note')}</p><h1>@{replace(replace(replace(coalesce(body('Get_Request')?['brn_notetitle'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')}</h1><table class=\"meta\"><tr><td class=\"k\">For</td><td>@{coalesce(body('Get_Request')?['brn_recipientname'], '')}@{if(empty(coalesce(body('Get_Request')?['brn_recipienttitle'], '')), '', concat(', ', body('Get_Request')?['brn_recipienttitle']))}</td></tr><tr><td class=\"k\">Prepared by</td><td>@{coalesce(body('Get_Request')?['brn_requestername'], body('Get_Request')?['brn_requesteremail'])}</td></tr><tr><td class=\"k\">Date</td><td>@{formatDateTime(utcNow(), 'yyyy-MM-dd')}</td></tr><tr><td class=\"k\">Reference</td><td>@{body('Get_Request')?['brn_requestnumber']} &middot; @{coalesce(body('Get_Request')?['_brn_templateid_value@OData.Community.Display.V1.FormattedValue'], 'Briefing note')}</td></tr></table><div class=\"key\"><b>Key message.</b> @{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(body('Get_Request')?['brn_keymessage'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</div>@{join(body('Select_Sections'), '')}<h2>Sources</h2><table class=\"src\"><tr><th>Ref.</th><th>Document</th><th>Type</th><th>Contribution</th></tr>@{join(body('Select_Sources'), '')}</table><h2>Verification notes (reviewer only)</h2><p>@{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(body('Get_Request')?['brn_verificationnotes'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</p><div class=\"foot\">@{coalesce(body('Get_Profile')?['brn_footertext'], '')} &middot; @{body('Get_Request')?['brn_requestnumber']} &middot; @{toUpper(coalesce(body('Get_Request')?['brn_classification@OData.Community.Display.V1.FormattedValue'], 'Unclassified'))}</div><p class=\"class\" style=\"margin-top:8px\">@{toUpper(coalesce(body('Get_Request')?['brn_classification@OData.Community.Display.V1.FormattedValue'], 'Unclassified'))}</p></body></html>",
+                    "runAfter": {
+                      "Select_Sources": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Draft_Temp_Html": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                        "connectionName": "shared_onedriveforbusiness",
+                        "operationId": "CreateFile"
+                      },
+                      "parameters": {
+                        "folderPath": "/Briefing Notes Rendering",
+                        "name": "@{guid()}.html",
+                        "body": "@outputs('Draft_Html')"
+                      }
+                    },
+                    "runAfter": {
+                      "Draft_Html": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Draft_Pdf": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                        "connectionName": "shared_onedriveforbusiness",
+                        "operationId": "ConvertFile"
+                      },
+                      "parameters": {
+                        "id": "@body('Draft_Temp_Html')?['Id']",
+                        "type": "PDF"
+                      }
+                    },
+                    "runAfter": {
+                      "Draft_Temp_Html": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Draft_Save_Pdf": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                        "connectionName": "shared_sharepointonline",
+                        "operationId": "CreateFile"
+                      },
+                      "parameters": {
+                        "dataset": "@body('Get_Profile')?['brn_sharepointsiteurl']",
+                        "folderPath": "@concat('/', body('Get_Profile')?['brn_sharepointlibrary'], '/', concat(body('Get_Profile')?['brn_sharepointrootfolder'], '/', replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(body('Get_Request')?['brn_requestnumber'], '/', '-'), '\\', '-'), ':', '-'), '*', '-'), '?', '-'), '\"', '-'), '<', '-'), '>', '-'), '|', '-'), '#', '-'), '%', '-'), '&', '-'), '/Drafts'))",
+                        "name": "@{concat(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(body('Get_Request')?['brn_requestnumber'], '/', '-'), '\\', '-'), ':', '-'), '*', '-'), '?', '-'), '\"', '-'), '<', '-'), '>', '-'), '|', '-'), '#', '-'), '%', '-'), '&', '-'), ' - DRAFT v', string(body('Get_Request')?['brn_draftversion']), '.pdf')}",
+                        "body": "@body('Draft_Pdf')"
+                      }
+                    },
+                    "runAfter": {
+                      "Draft_Pdf": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Draft_Delete_Temp": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                        "connectionName": "shared_onedriveforbusiness",
+                        "operationId": "DeleteFile"
+                      },
+                      "parameters": {
+                        "id": "@body('Draft_Temp_Html')?['Id']"
+                      }
+                    },
+                    "runAfter": {
+                      "Draft_Save_Pdf": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Draft_Url": {
+                    "type": "Compose",
+                    "inputs": "@replace(concat(body('Get_Profile')?['brn_sharepointsiteurl'], '/', body('Get_Profile')?['brn_sharepointlibrary'], '/', concat(body('Get_Profile')?['brn_sharepointrootfolder'], '/', replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(body('Get_Request')?['brn_requestnumber'], '/', '-'), '\\', '-'), ':', '-'), '*', '-'), '?', '-'), '\"', '-'), '<', '-'), '>', '-'), '|', '-'), '#', '-'), '%', '-'), '&', '-'), '/Drafts'), '/', concat(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(body('Get_Request')?['brn_requestnumber'], '/', '-'), '\\', '-'), ':', '-'), '*', '-'), '?', '-'), '\"', '-'), '<', '-'), '>', '-'), '|', '-'), '#', '-'), '%', '-'), '&', '-'), ' - DRAFT v', string(body('Get_Request')?['brn_draftversion']), '.pdf')), ' ', '%20')",
+                    "runAfter": {
+                      "Draft_Delete_Temp": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Draft_Folder_Url": {
+                    "type": "Compose",
+                    "inputs": "@replace(concat(body('Get_Profile')?['brn_sharepointsiteurl'], '/', body('Get_Profile')?['brn_sharepointlibrary'], '/', body('Get_Profile')?['brn_sharepointrootfolder'], '/', replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(body('Get_Request')?['brn_requestnumber'], '/', '-'), '\\', '-'), ':', '-'), '*', '-'), '?', '-'), '\"', '-'), '<', '-'), '>', '-'), '|', '-'), '#', '-'), '%', '-'), '&', '-')), ' ', '%20')",
+                    "runAfter": {
+                      "Draft_Url": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Set_In_Review": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "UpdateRecord"
+                      },
+                      "parameters": {
+                        "entityName": "brn_requests",
+                        "recordId": "@triggerOutputs()?['body/brn_requestid']",
+                        "item/brn_status": 743800005,
+                        "item/brn_draftpdfurl": "@outputs('Draft_Url')",
+                        "item/brn_sharepointfolderurl": "@outputs('Draft_Folder_Url')",
+                        "item/brn_draftedon": "@utcNow()",
+                        "item/brn_revieweremail": "@coalesce(body('Get_Request')?['brn_revieweremail'], body('Get_Profile')?['brn_defaultrevieweremail'], body('Get_Request')?['brn_requesteremail'])",
+                        "item/brn_lasterror": ""
+                      }
+                    },
+                    "runAfter": {
+                      "Draft_Folder_Url": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Notify_Review": {
+                    "type": "Scope",
+                    "actions": {
+                      "Email_Reviewer": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                            "connectionName": "shared_office365",
+                            "operationId": "SendEmailV2"
+                          },
+                          "parameters": {
+                            "emailMessage/To": "@coalesce(body('Get_Request')?['brn_revieweremail'], body('Get_Profile')?['brn_defaultrevieweremail'], body('Get_Request')?['brn_requesteremail'])",
+                            "emailMessage/Subject": "[@{body('Get_Request')?['brn_requestnumber']}] Draft ready for review: @{body('Get_Request')?['brn_notetitle']}",
+                            "emailMessage/Body": "<p>A draft briefing note is ready for your review.</p><p><b>@{replace(replace(replace(coalesce(body('Get_Request')?['brn_notetitle'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')}</b><br>For: @{coalesce(body('Get_Request')?['brn_recipientname'], '')} @{coalesce(body('Get_Request')?['brn_recipienttitle'], '')}<br>Requested by: @{coalesce(body('Get_Request')?['brn_requestername'], body('Get_Request')?['brn_requesteremail'])}<br>Classification: @{body('Get_Request')?['brn_classification@OData.Community.Display.V1.FormattedValue']} &middot; Confidence: @{coalesce(body('Get_Request')?['brn_confidence@OData.Community.Display.V1.FormattedValue'], 'n/a')} &middot; Draft v@{body('Get_Request')?['brn_draftversion']}</p><h3>Key message</h3><p>@{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(body('Get_Request')?['brn_keymessage'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</p><h3>Verification notes</h3><p>@{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(body('Get_Request')?['brn_verificationnotes'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</p><p>Edit the sections, then <b>Approve</b> or <b>Request revision</b> in Briefing Studio (or ask the Briefing Assistant in Teams). The draft PDF is attached.</p><p>@{if(empty(parameters('brn_StudioUrl (brn_StudioUrl)')), '', concat('<a href=\"', parameters('brn_StudioUrl (brn_StudioUrl)'), '\">Open in Briefing Studio</a> &nbsp;|&nbsp; '))}<a href=\"@{outputs('Draft_Url')}\">Draft PDF</a> &nbsp;|&nbsp; <a href=\"@{parameters('brn_AppBaseUrl (brn_AppBaseUrl)')}&pagetype=entityrecord&etn=brn_request&id=@{triggerOutputs()?['body/brn_requestid']}\">Open in Briefing Notes Hub</a></p><p style=\"color:#737373;font-size:9pt\">Sent by the Briefing Note Generator. The note is an AI-assisted draft reviewed by staff.</p>",
+                            "emailMessage/Importance": "Normal",
+                            "emailMessage/Cc": "@body('Get_Request')?['brn_requesteremail']",
+                            "emailMessage/Attachments": [
+                              {
+                                "Name": "@{concat(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(body('Get_Request')?['brn_requestnumber'], '/', '-'), '\\', '-'), ':', '-'), '*', '-'), '?', '-'), '\"', '-'), '<', '-'), '>', '-'), '|', '-'), '#', '-'), '%', '-'), '&', '-'), ' - DRAFT v', string(body('Get_Request')?['brn_draftversion']), '.pdf')}",
+                                "ContentBytes": "@body('Draft_Pdf')"
+                              }
+                            ]
+                          }
+                        },
+                        "runAfter": {}
+                      },
+                      "Teams_Reviewer": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                            "connectionName": "shared_teams",
+                            "operationId": "PostMessageToConversation"
+                          },
+                          "parameters": {
+                            "poster": "Flow bot",
+                            "location": "Chat with Flow bot",
+                            "body/recipient": "@coalesce(body('Get_Request')?['brn_revieweremail'], body('Get_Profile')?['brn_defaultrevieweremail'], body('Get_Request')?['brn_requesteremail'])",
+                            "body/messageBody": "<p><b>📝 @{body('Get_Request')?['brn_requestnumber']}: draft ready for your review</b></p><p><b>@{replace(replace(replace(coalesce(body('Get_Request')?['brn_notetitle'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')}</b></p><p>@{substring(replace(replace(replace(concat(decodeUriComponent('%0A'), replace(replace(replace(coalesce(body('Get_Request')?['brn_keymessage'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')), decodeUriComponent('%0A'), '<br>'), '<br>- ', '<br>&bull;&nbsp;'), '<br><br>&bull;', '<br>&bull;'), 4)}</p><p>@{if(empty(parameters('brn_StudioUrl (brn_StudioUrl)')), '', concat('<a href=\"', parameters('brn_StudioUrl (brn_StudioUrl)'), '\">Open in Briefing Studio</a> &nbsp;|&nbsp; '))}<a href=\"@{outputs('Draft_Url')}\">Draft PDF</a> &nbsp;|&nbsp; <a href=\"@{parameters('brn_AppBaseUrl (brn_AppBaseUrl)')}&pagetype=entityrecord&etn=brn_request&id=@{triggerOutputs()?['body/brn_requestid']}\">Open in Briefing Notes Hub</a></p>"
+                          }
+                        },
+                        "runAfter": {
+                          "Email_Reviewer": [
+                            "Succeeded",
+                            "Failed",
+                            "Skipped",
+                            "TimedOut"
+                          ]
+                        }
+                      },
+                      "Teams_Requester": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                            "connectionName": "shared_teams",
+                            "operationId": "PostMessageToConversation"
+                          },
+                          "parameters": {
+                            "poster": "Flow bot",
+                            "location": "Chat with Flow bot",
+                            "body/recipient": "@body('Get_Request')?['brn_requesteremail']",
+                            "body/messageBody": "<p><b>✅ @{body('Get_Request')?['brn_requestnumber']}: your draft is ready</b> and was sent to @{coalesce(body('Get_Request')?['brn_revieweremail'], body('Get_Profile')?['brn_defaultrevieweremail'], body('Get_Request')?['brn_requesteremail'])} for review.</p><p><b>@{replace(replace(replace(coalesce(body('Get_Request')?['brn_notetitle'], ''), '&', '&amp;'), '<', '&lt;'), '>', '&gt;')}</b></p><p>@{if(empty(parameters('brn_StudioUrl (brn_StudioUrl)')), '', concat('<a href=\"', parameters('brn_StudioUrl (brn_StudioUrl)'), '\">Open in Briefing Studio</a> &nbsp;|&nbsp; '))}<a href=\"@{outputs('Draft_Url')}\">Draft PDF</a> &nbsp;|&nbsp; <a href=\"@{parameters('brn_AppBaseUrl (brn_AppBaseUrl)')}&pagetype=entityrecord&etn=brn_request&id=@{triggerOutputs()?['body/brn_requestid']}\">Open in Briefing Notes Hub</a></p>"
+                          }
+                        },
+                        "runAfter": {
+                          "Teams_Reviewer": [
+                            "Succeeded",
+                            "Failed",
+                            "Skipped",
+                            "TimedOut"
+                          ]
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Set_In_Review": [
+                        "Succeeded"
+                      ]
+                    }
+                  },
+                  "Log_Draft_Ready": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "CreateRecord"
+                      },
+                      "parameters": {
+                        "entityName": "brn_activities",
+                        "item/brn_name": "Draft v@{body('Get_Request')?['brn_draftversion']} ready for review",
+                        "item/brn_RequestId@odata.bind": "/brn_requests(@{triggerOutputs()?['body/brn_requestid']})",
+                        "item/brn_actor": 743800002,
+                        "item/brn_activitytype": 743800004,
+                        "item/brn_startedon": "@variables('startTime')",
+                        "item/brn_workflowrun": "@{workflow()?['run']?['name']}",
+                        "item/brn_details": "@{substring(coalesce(body('Run_Briefing_Note_Writer')?['structuredOutput']?['summary'], ''), 0, min(3900, length(coalesce(body('Run_Briefing_Note_Writer')?['structuredOutput']?['summary'], ''))))}",
+                        "item/brn_completedon": "@utcNow()",
+                        "item/brn_durationseconds": "@div(sub(ticks(utcNow()), ticks(variables('startTime'))), 10000000)"
+                      }
+                    },
+                    "runAfter": {
+                      "Notify_Review": [
+                        "Succeeded",
+                        "Failed",
+                        "Skipped",
+                        "TimedOut"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Init_Start_Time": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Catch": {
+          "type": "Scope",
+          "runAfter": {
+            "Try": [
+              "Failed",
+              "TimedOut"
+            ]
+          },
+          "actions": {
+            "Failed_Actions": {
+              "type": "Query",
+              "inputs": {
+                "from": "@result('Try')",
+                "where": "@equals(item()?['status'], 'Failed')"
+              },
+              "runAfter": {}
+            },
+            "Mark_Needs_Attention": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord"
+                },
+                "parameters": {
+                  "entityName": "brn_requests",
+                  "recordId": "@triggerOutputs()?['body/brn_requestid']",
+                  "item/brn_status": 743800010,
+                  "item/brn_lasterror": "@{substring(concat(first(body('Failed_Actions'))?['name'], ': ', string(coalesce(first(body('Failed_Actions'))?['outputs']?['body']?['error'], first(body('Failed_Actions'))?['error'], first(body('Failed_Actions'))?['outputs']?['body'], 'unknown error'))), 0, min(3900, length(concat(first(body('Failed_Actions'))?['name'], ': ', string(coalesce(first(body('Failed_Actions'))?['outputs']?['body']?['error'], first(body('Failed_Actions'))?['error'], first(body('Failed_Actions'))?['outputs']?['body'], 'unknown error'))))))}"
+                }
+              },
+              "runAfter": {
+                "Failed_Actions": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Log_Failure": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord"
+                },
+                "parameters": {
+                  "entityName": "brn_activities",
+                  "item/brn_name": "Drafting failed",
+                  "item/brn_RequestId@odata.bind": "/brn_requests(@{triggerOutputs()?['body/brn_requestid']})",
+                  "item/brn_actor": 743800003,
+                  "item/brn_activitytype": 743800008,
+                  "item/brn_startedon": "@variables('startTime')",
+                  "item/brn_workflowrun": "@{workflow()?['run']?['name']}",
+                  "item/brn_details": "@{substring(concat(first(body('Failed_Actions'))?['name'], ': ', string(coalesce(first(body('Failed_Actions'))?['outputs']?['body']?['error'], first(body('Failed_Actions'))?['error'], first(body('Failed_Actions'))?['outputs']?['body'], 'unknown error'))), 0, min(3900, length(concat(first(body('Failed_Actions'))?['name'], ': ', string(coalesce(first(body('Failed_Actions'))?['outputs']?['body']?['error'], first(body('Failed_Actions'))?['error'], first(body('Failed_Actions'))?['outputs']?['body'], 'unknown error'))))))}",
+                  "item/brn_completedon": "@utcNow()",
+                  "item/brn_durationseconds": "@div(sub(ticks(utcNow()), ticks(variables('startTime'))), 10000000)"
+                }
+              },
+              "runAfter": {
+                "Mark_Needs_Attention": [
+                  "Succeeded"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

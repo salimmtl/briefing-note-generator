@@ -1,0 +1,11 @@
+<botcomponent schemaname="brn_BriefingAssistant.tool.dataverse-mcp-server_brnDv1">
+  <componenttype>9</componenttype>
+  <description>Creates, reads and updates briefing requests, source documents and activities (brn_*) and reads profiles and templates. Use read_query to read and create_record / update_record to write.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Dataverse MCP Server</name>
+  <parentbotid>
+    <schemaname>brn_BriefingAssistant</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,69 @@
+kind: InlineAgentSkill
+content: |
+  ---
+  name: submit-briefing-request
+  description: Collects a briefing request in a short interview (subject, recipient, template, purpose, language, classification, due date, documents), saves the request and its source documents in Dataverse and submits it.
+  ---
+  <!-- bic:source=blank -->
+  # Submit a briefing request
+
+  ## 1. Interview (one question per message; skip anything the user already said)
+  1. **Profile**: `SELECT brn_profileid, brn_name, brn_sector, brn_defaultrevieweremail, brn_defaultlanguage FROM brn_profile WHERE brn_isactive = 1`. If there is only one, use it; otherwise ask which organization this is for.
+  2. **What and for whom**: the subject, and the recipient's name and title (for example "Deputy Minister Jane Smith"). Recipient email is optional (needed only to send them the final note).
+  3. **Template**: `SELECT brn_templateid, brn_name, brn_whentouse FROM brn_template WHERE brn_isactive = 1 ORDER BY brn_sortorder`. Suggest the best fit from what the user said, with one line on why, and let them pick another.
+  4. **Purpose**: what the leader needs to know or decide, and why now. Optional extra context (sensitivities, positions, what to emphasize).
+  5. **Language** (743800000 = English, 743800001 = French), **classification** (743800000 = Unclassified, 743800001 = Protected A, 743800002 = Protected B, 743800003 = Internal, 743800004 = Confidential), **priority** (743800000 = Routine, 743800001 = Priority, 743800002 = Urgent) and **due date**. Offer defaults: profile language, Unclassified (public sector) or Internal (private sector), Routine, no due date.
+  6. **Delivery**: 743800000 = Send to requester and recipient, 743800001 = Send to requester only. Default: send to requester and recipient if a recipient email was given, otherwise requester only. Reviewer: the profile's default reviewer unless the user names someone.
+  7. **Documents**: ask the user to attach the source documents (PDF, Word, PowerPoint, Excel or text) to their message, or to paste text. Several files are fine. For each attachment, read its full text.
+
+  ## 2. Confirm
+  Play back a short summary (subject, recipient, template, purpose, language, classification, due date, delivery, reviewer, and the documents with their approximate length). Ask: "Shall I submit this request?" Only continue after a clear yes.
+
+  ## 3. Save (in this order)
+  1. `create_record` on `brn_request` with `brn_name` (subject), `brn_status` = 743800000 (Draft), `brn_requestername`, `brn_requesteremail`, recipient fields, `brn_revieweremail`, `brn_purpose`, `brn_additionalcontext`, `brn_language`, `brn_classification`, `brn_priority`, `brn_duedate`, `brn_deliverymode`, `brn_intakechannel` = 743800001, and the `brn_profileid` and `brn_templateid` lookups. Read it back to get `brn_requestnumber`.
+  2. For each document, `create_record` on `brn_sourcedocument`: `brn_name` (file name, or "Pasted text 1"), `brn_requestid` lookup, `brn_sourcelabel` = S1, S2… in order, `brn_documenttype` (best guess: 743800000 = Report, 743800001 = Memo or briefing, 743800002 = Email or correspondence, 743800003 = Presentation, 743800004 = Data or spreadsheet, 743800005 = Web page or article, 743800006 = Meeting notes, 743800007 = Other), `brn_extractedtext` = the document's full text (up to 100,000 characters; if longer, keep the most relevant parts and say so), `brn_extractionstatus` = 743800001, `brn_charactercount`, and `brn_pagecount` if known. The original file isn't stored from the chat: tell the user they can add originals in Briefing Studio if they want them kept.
+  3. **Submit**: `update_record` on the request: `brn_status` = 743800001 (Submitted) and `brn_submittedon` = now (UTC). This change starts the drafting workflow, so do it last and only once.
+  4. `create_record` on `brn_activity`: `brn_name` = "<BN number> submitted from the Briefing Assistant", `brn_requestid` lookup, `brn_actor` = 743800001, `brn_activitytype` = 743800000, `brn_details` = the number of documents and the template, `brn_startedon` = now.
+  5. Confirm with the BN number and what happens next (draft usually within a few minutes; a question may come first).
+
+  ## Dataverse contract
+  ### `brn_request` (Briefing Request)
+
+  | Column | Type | Notes |
+  |---|---|---|
+  | `brn_name` | text (max 300) | Subject. Required |
+  | `brn_status` | choice | Status. Values: 743800000 = Draft, 743800001 = Submitted, 743800002 = Drafting, 743800003 = Needs Info, 743800004 = Info Provided, 743800005 = In Review, 743800006 = Revision Requested, 743800007 = Approved, 743800008 = Delivered, 743800009 = Cancelled, 743800010 = Needs Attention |
+  | `brn_requestername` | text | Requester Name (max 200 chars) |
+  | `brn_requesteremail` | text (email) | Requester Email |
+  | `brn_recipientname` | text | Recipient Name (max 200 chars) |
+  | `brn_recipienttitle` | text | Recipient Title (max 200 chars) |
+  | `brn_recipientemail` | text (email) | Recipient Email |
+  | `brn_revieweremail` | text (email) | Reviewer Email |
+  | `brn_purpose` | multiline text | Purpose (max 4000 chars). Why the leader needs this note and what it should help them do. |
+  | `brn_additionalcontext` | multiline text | Additional Context (max 10000 chars) |
+  | `brn_language` | choice | Language. Values: 743800000 = English, 743800001 = French |
+  | `brn_classification` | choice | Classification. Values: 743800000 = Unclassified, 743800001 = Protected A, 743800002 = Protected B, 743800003 = Internal, 743800004 = Confidential |
+  | `brn_priority` | choice | Priority. Values: 743800000 = Routine, 743800001 = Priority, 743800002 = Urgent |
+  | `brn_duedate` | date only (YYYY-MM-DD) | Due Date |
+  | `brn_deliverymode` | choice | Delivery Mode. Values: 743800000 = Send to requester and recipient, 743800001 = Send to requester only |
+  | `brn_intakechannel` | choice | Intake Channel. Values: 743800000 = Briefing Studio, 743800001 = Briefing Assistant, 743800002 = Briefing Notes Hub |
+  | `brn_submittedon` | date and time (ISO 8601, UTC) | Submitted On |
+  | `brn_profileid` | lookup | Briefing Profile → `brn_profile`. Pass {"relatedTable": "brn_profile", "recordId": "<guid>"} |
+  | `brn_templateid` | lookup | Note Template → `brn_template`. Pass {"relatedTable": "brn_template", "recordId": "<guid>"} |
+
+  ### `brn_sourcedocument` (Source Document)
+
+  | Column | Type | Notes |
+  |---|---|---|
+  | `brn_name` | text (max 300) | File Name. Required |
+  | `brn_sourcelabel` | text | Source Label (max 10 chars). S1, S2… used for citations. |
+  | `brn_documenttype` | choice | Document Type. Values: 743800000 = Report, 743800001 = Memo or briefing, 743800002 = Email or correspondence, 743800003 = Presentation, 743800004 = Data or spreadsheet, 743800005 = Web page or article, 743800006 = Meeting notes, 743800007 = Other |
+  | `brn_extractedtext` | multiline text | Extracted Text (max 1048576 chars) |
+  | `brn_extractionstatus` | choice | Extraction Status. Values: 743800000 = Pending, 743800001 = Extracted, 743800002 = Failed, 743800003 = Not supported |
+  | `brn_pagecount` | whole number | Pages |
+  | `brn_charactercount` | whole number | Characters |
+  | `brn_requestid` | lookup | Briefing Request → `brn_request`. Pass {"relatedTable": "brn_request", "recordId": "<guid>"}. Required |
+mcs.metadata:
+  componentName: submit-briefing-request
+  description: Collects a briefing request in a short interview (subject, recipient, template, purpose, language, classification, due date, documents), saves the request and its source documents in Dataverse and submits it.
+  schemaName: brn_BriefingAssistant.skill.submit-briefing-request_brn01

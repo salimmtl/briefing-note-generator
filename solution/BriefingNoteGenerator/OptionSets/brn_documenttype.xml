@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="brn_documenttype" localizedName="Source Document Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Source Document Type" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="743800000" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Report" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800001" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Memo or briefing" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800002" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Email or correspondence" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800003" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Presentation" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800004" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Data or spreadsheet" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800005" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Web page or article" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800006" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Meeting notes" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800007" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Other" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

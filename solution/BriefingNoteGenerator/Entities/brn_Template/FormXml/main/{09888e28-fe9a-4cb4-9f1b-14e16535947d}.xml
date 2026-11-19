@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{09888e28-fe9a-4cb4-9f1b-14e16535947d}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="General" id="{4E0EEF36-3666-41A5-A6C3-17D686559E20}" expanded="true" showlabel="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Template" id="{751F6CC2-FD5B-4145-9A73-A11109132B69}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="Template" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{121C1EA7-8311-43B2-AD6A-B424D2BC21DE}" showlabel="true">
+                        <labels>
+                          <label description="Template" languagecode="1033" />
+                        </labels>
+                        <control id="brn_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_name" disabled="false" />
+                      </cell>
+                      <cell id="{950F618C-288B-4AD2-8B1B-15C069A6D6E2}" showlabel="true">
+                        <labels>
+                          <label description="Code" languagecode="1033" />
+                        </labels>
+                        <control id="brn_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_code" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{C769872D-1A88-4357-8A60-214BFB3FCB7C}" showlabel="true">
+                        <labels>
+                          <label description="Note Type" languagecode="1033" />
+                        </labels>
+                        <control id="brn_notetype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_notetype" disabled="false" />
+                      </cell>
+                      <cell id="{BE60C497-01F9-42DE-BCF6-43F6B5B5FDF1}" showlabel="true">
+                        <labels>
+                          <label description="Maximum Words" languagecode="1033" />
+                        </labels>
+                        <control id="brn_maxwords" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_maxwords" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{13641EE0-9FDB-4A69-88E8-EB182A81AA4A}" showlabel="true">
+                        <labels>
+                          <label description="Sort Order" languagecode="1033" />
+                        </labels>
+                        <control id="brn_sortorder" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_sortorder" disabled="false" />
+                      </cell>
+                      <cell id="{935A7600-F717-4ED9-892E-7A3190497E8A}" showlabel="true">
+                        <labels>
+                          <label description="Active" languagecode="1033" />
+                        </labels>
+                        <control id="brn_isactive" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="brn_isactive" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="When to use" id="{EAE2A32D-FC6F-4475-A34C-C0DF5DCF6A30}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="When to use" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{DDADF314-079F-4B42-804D-BA2FE0A6D4CC}" showlabel="true" rowspan="4">
+                        <labels>
+                          <label description="When to Use" languagecode="1033" />
+                        </labels>
+                        <control id="brn_whentouse" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_whentouse" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Structure and rules" id="{4B82006E-E84B-4090-AA2D-C48C6C532379}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Structure and rules" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Structure and rules" id="{C91D16BD-1BDB-4118-8952-9AB2E358A8EA}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="Structure and rules" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{9071B775-8823-4F03-B12E-2588D143BD02}" showlabel="true" rowspan="10">
+                        <labels>
+                          <label description="Sections" languagecode="1033" />
+                        </labels>
+                        <control id="brn_sections" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_sections" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{A5F53F96-B7BD-4DEE-99D6-8871D3FC31F5}" showlabel="true" rowspan="10">
+                        <labels>
+                          <label description="Writing Rules" languagecode="1033" />
+                        </labels>
+                        <control id="brn_writingrules" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_writingrules" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Briefing requests" id="{3824DFB8-B26E-4906-811D-2E9FA7CD2FF5}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Briefing requests" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Briefing requests" id="{E1F50EC8-8547-40A5-9741-F1D447BFB7CE}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="Briefing requests" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{8AF42357-1AE8-4CD6-A8ED-4564687CBE6D}" showlabel="false" rowspan="10" colspan="1" auto="false">
+                        <labels>
+                          <label description="Briefing Requests" languagecode="1033" />
+                        </labels>
+                        <control id="brn_request_0f91bc" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{2DDF9670-D115-4E2D-88AC-0A60B615B141}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>brn_Template_Request_TemplateId</RelationshipName>
+                            <TargetEntityType>brn_request</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>10</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{56A8D585-9444-4F10-BC85-E31600A8CCD2}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{6124741F-DC5B-4A77-9948-999FD64EF50F}" showlabel="true">
+              <labels>
+                <label description="Note Type" languagecode="1033" />
+              </labels>
+              <control id="header_brn_notetype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_notetype" disabled="false" />
+            </cell>
+            <cell id="{8C7A76A3-36B7-4B71-B5FF-E49566835DBF}" showlabel="true">
+              <labels>
+                <label description="Maximum Words" languagecode="1033" />
+              </labels>
+              <control id="header_brn_maxwords" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_maxwords" disabled="false" />
+            </cell>
+            <cell id="{81499487-FB77-424C-96ED-E6E83BF36906}" showlabel="true">
+              <labels>
+                <label description="Active" languagecode="1033" />
+              </labels>
+              <control id="header_brn_isactive" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="brn_isactive" disabled="false" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{F39D9206-C432-4DEF-9F59-54BCE2FF1D93}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows />
+      </footer>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Note Template" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

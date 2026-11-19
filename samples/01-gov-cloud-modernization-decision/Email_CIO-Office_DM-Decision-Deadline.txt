@@ -1,0 +1,38 @@
+From:    Julien Okafor <julien.okafor@digitalgov.example>
+         Chief of Staff, Office of the Chief Information Officer
+To:      DM Office Correspondence <dmo.correspondence@digitalgov.example>
+Cc:      Grace Oyelaran (CIO); Priya Ramanathan; Marc-Antoine Delorme
+Date:    Monday, November 9, 2026 4:12 PM
+Subject: ACTION REQUIRED - DM decision on Enterprise Modernization Program by Nov 20
+
+[FICTIONAL DEMO EMAIL - all names and addresses are fictional]
+
+Good afternoon,
+
+On behalf of Grace, I'm writing to request that a decision note on the Enterprise
+Modernization Program (EMP) be placed in the Deputy Minister's weekend reading.
+
+We need the DM's decision on the preferred option no later than Friday, November 20,
+2026. Without it, we can't get the Minister's sign-off on Nov 27 and we will miss the
+TBS deadline of December 4 for the winter cycle.
+
+Quick recap for the note:
+ - 140 legacy apps currently in Harbourview; lease ends March 31, 2028 (no renewal).
+ - CIO recommends Option C, phased modernization, approx. $361M over five years.
+ - Option B (lift-and-shift) is cheaper over 5 years but more expensive after year 7.
+ - PTEA (the union) wants formal consultation on retraining for ~85 staff before
+   anything is announced. Their president, Lorna Feist, has asked for a meeting with
+   the DM in early December.
+ - Benefits and Land Registry ADMs are on side but want no cutovers Jan-April.
+
+Grace would also like the note to flag that the DM may wish to brief the Minister
+before the Nov 27 sign-off, since the Minister has publicly committed to "no service
+disruptions for benefit recipients" during the transition.
+
+Happy to provide anything else you need. The CFO's office has the latest numbers.
+
+Thanks,
+Julien
+
+Julien Okafor | Chief of Staff, Office of the CIO
+Ministry of Digital Government (fictional)

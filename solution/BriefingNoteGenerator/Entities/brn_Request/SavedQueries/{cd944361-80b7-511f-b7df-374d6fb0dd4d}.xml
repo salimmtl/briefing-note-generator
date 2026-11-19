@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{cd944361-80b7-511f-b7df-374d6fb0dd4d}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="brn_name" select="1" icon="1" preview="1">
+        <row name="result" id="brn_requestid">
+          <cell name="brn_requestnumber" width="100" />
+          <cell name="brn_name" width="260" />
+          <cell name="brn_status" width="140" />
+          <cell name="brn_templateid" width="190" />
+          <cell name="brn_recipientname" width="160" />
+          <cell name="brn_duedate" width="100" />
+          <cell name="brn_priority" width="90" />
+          <cell name="brn_requestername" width="150" />
+          <cell name="modifiedon" width="130" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="brn_request">
+          <attribute name="brn_requestnumber" />
+          <attribute name="brn_name" />
+          <attribute name="brn_status" />
+          <attribute name="brn_templateid" />
+          <attribute name="brn_recipientname" />
+          <attribute name="brn_duedate" />
+          <attribute name="brn_priority" />
+          <attribute name="brn_requestername" />
+          <attribute name="modifiedon" />
+          <attribute name="brn_requestid" />
+          <order attribute="modifiedon" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="brn_status" operator="in">
+              <value>743800010</value>
+            </condition>
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Briefing Requests Needing Attention" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

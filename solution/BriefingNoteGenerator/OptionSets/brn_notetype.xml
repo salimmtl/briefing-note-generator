@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="brn_notetype" localizedName="Note Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Note Type" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="743800000" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Briefing Note for Information" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800001" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Briefing Note for Decision" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800002" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Meeting or Event Brief" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800003" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Issue Note" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800004" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Executive Summary" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

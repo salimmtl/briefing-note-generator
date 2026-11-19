@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "appId": "<code-app-id>",
+  "appDisplayName": "Briefing Studio",
+  "region": "prod",
+  "environmentId": "<environment-id>",
+  "description": " ",
+  "buildPath": "dist",
+  "buildEntryPoint": "index.html",
+  "localAppUrl": "http://localhost:3000",
+  "logoPath": "Default",
+  "connectionReferences": {},
+  "databaseReferences": {
+    "default.cds": {
+      "dataSources": {
+        "briefingprofiles": {
+          "entitySetName": "brn_profiles",
+          "logicalName": "brn_profile"
+        },
+        "notetemplates": {
+          "entitySetName": "brn_templates",
+          "logicalName": "brn_template"
+        },
+        "briefingrequests": {
+          "entitySetName": "brn_requests",
+          "logicalName": "brn_request"
+        },
+        "sourcedocuments": {
+          "entitySetName": "brn_sourcedocuments",
+          "logicalName": "brn_sourcedocument"
+        },
+        "briefingactivities": {
+          "entitySetName": "brn_activities",
+          "logicalName": "brn_activity"
+        }
+      },
+      "environmentVariableName": ""
+    }
+  }
+}

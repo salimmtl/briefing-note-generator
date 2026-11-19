@@ -1,0 +1,11 @@
+<botcomponent schemaname="brn_BriefingAssistant.skill.answer-clarification_brn01">
+  <componenttype>9</componenttype>
+  <description>Shows the Briefing Note Writer's questions on a request in Needs Info, collects the requester's answers and sends them back so the note is re-drafted.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>answer-clarification</name>
+  <parentbotid>
+    <schemaname>brn_BriefingAssistant</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,547 @@
+Screens:
+  Screen1:
+    Properties:
+      Fill: =ClrCanvas
+    Children:
+      - conBoardRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            Width: =Parent.Width
+            Height: =Parent.Height
+            LayoutMinWidth: =0
+            LayoutMinHeight: =0
+            Fill: =ClrCanvas
+            LayoutGap: =0
+            PaddingBottom: =24
+          Children:
+            - conBoardHeader:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutWrap: =true
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.Start
+                  LayoutGap: =16
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  PaddingTop: =12
+                  PaddingBottom: =12
+                  Fill: =ClrSurface
+                  DropShadow: =DropShadow.Light
+                  FillPortions: =0
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Height: =If(App.Width < 1000, 112, 64)
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblBoardWordmark:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Briefing Board"
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        Width: =170
+                        Height: =40
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        Wrap: =false
+                        VerticalAlign: =VerticalAlign.Middle
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AccessibleLabel: ="Briefing Board"
+                  - conBoardNav:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =4
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        Width: =320
+                        Height: =40
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnBoardNavBoard:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Board"
+                              OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Center
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Primary
+                              Color: =ClrSurface
+                              FontWeight: =FontWeight.Semibold
+                              AccessibleLabel: ="Board, current page"
+                        - btnBoardNavList:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="List"
+                              OnSelect: =Navigate(ListScreen, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Center
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =ClrText
+                              FontWeight: =FontWeight.Normal
+                              AccessibleLabel: ="List"
+                        - btnBoardNavOverview:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Overview"
+                              OnSelect: =Navigate(OverviewScreen, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Center
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =ClrText
+                              FontWeight: =FontWeight.Normal
+                              AccessibleLabel: ="Overview"
+                  - conBoardHeaderSpacer:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        FillPortions: =1
+                        Height: =8
+                        AlignInContainer: =AlignInContainer.Center
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                  - bdgBoardAttention:
+                      Control: ModernBadge
+                      Properties:
+                        Content: =CountRows(Filter(colRequests, Status = "Needs Attention")) & " need attention"
+                        Visible: =CountRows(Filter(colRequests, Status = "Needs Attention")) > 0
+                        Fill: =ClrRedTint
+                        BorderColor: =ClrRedTint
+                        Color: =ClrRed
+                        Appearance: =BadgeAppearance.Tint
+                        Shape: =BadgeShape.Rounded
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Width: =140
+                        Height: =28
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: =CountRows(Filter(colRequests, Status = "Needs Attention")) & " need attention"
+                  - lblBoardUpdated:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Updated " & Text(varUpdatedAt, "hh:mm:ss")
+                        Size: =12
+                        Color: =ClrTextSecondary
+                        Width: =120
+                        Height: =28
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        Wrap: =false
+                        Align: =Align.Right
+                        VerticalAlign: =VerticalAlign.Middle
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AccessibleLabel: ="Data updated at " & Text(varUpdatedAt, "hh:mm:ss")
+                  - btnBoardRefresh:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Refresh"
+                        Icon: ="ArrowClockwise"
+                        Layout: =ButtonLayout.IconBefore
+                        Appearance: =ButtonAppearance.Outline
+                        BasePaletteColor: =ClrAccent
+                        Width: =112
+                        Height: =36
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: ="Refresh data"
+                        OnSelect: |-
+                          =LoadBriefings();
+                          Set(varUpdatedAt, Now());
+                          Set(varSelected, LookUp(colRequests, Id = varSelected.Id))
+            - conBoardTitleRow:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  FillPortions: =0
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  Height: =80
+                  PaddingTop: =24
+                  PaddingBottom: =8
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =16
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblBoardTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Briefing requests by stage"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        FillPortions: =1
+                        Height: =40
+                        AlignInContainer: =AlignInContainer.Center
+                        Wrap: =false
+                        VerticalAlign: =VerticalAlign.Middle
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AccessibleLabel: ="Briefing requests by stage"
+                  - lblBoardSummary:
+                      Control: ModernText
+                      Properties:
+                        Text: =CountRows(Filter(colRequests, Lane <> "Cancelled")) & " on the board · " & CountRows(Filter(colRequests, Lane = "Cancelled")) & " cancelled (see List)"
+                        Size: =12
+                        Color: =ClrTextSecondary
+                        Align: =Align.Right
+                        Width: =300
+                        Height: =24
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        Wrap: =false
+                        VerticalAlign: =VerticalAlign.Middle
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AccessibleLabel: =Self.Text
+            - lblBoardEmpty:
+                Control: ModernText
+                Properties:
+                  Visible: =CountRows(Filter(colRequests, Lane <> "Cancelled")) = 0
+                  Text: ="No briefing requests to show. Select Refresh to load them again."
+                  Size: =14
+                  Color: =ClrTextSecondary
+                  AutoHeight: =true
+                  Wrap: =true
+                  FillPortions: =0
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  PaddingTop: =0
+                  PaddingBottom: =16
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  AccessibleLabel: =Self.Text
+            - galBoardLanes:
+                Control: Gallery
+                Variant: Horizontal
+                Properties:
+                  Items: =SortByColumns(Lanes, "LaneOrder", SortOrder.Ascending)
+                  TemplatePadding: =8
+                  TemplateSize: =Max(254, (Self.Width - 48) / 5)
+                  ShowScrollbar: =true
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  FillPortions: =0
+                  Height: |-
+                    =With(
+                      {maxN: Max(ForAll(Lanes As ln, CountRows(Filter(colRequests, Lane = ln.LaneName))), Value)},
+                      Max(330, 84 + Max(1, maxN) * 162)
+                    )
+                  Fill: =RGBA(0, 0, 0, 0)
+                  BorderThickness: =0
+                  ShowNavigation: =false
+                  Selectable: =false
+                  TabIndex: =0
+                  AccessibleLabel: ="Board lanes"
+                Children:
+                  - conBoardLaneShell:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        Width: =Parent.TemplateWidth
+                        Height: =Parent.TemplateHeight
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =6
+                        PaddingTop: =6
+                        PaddingBottom: =6
+                        PaddingLeft: =6
+                        PaddingRight: =6
+                        Fill: =ClrSurface
+                        BorderColor: =ClrBorder
+                        BorderThickness: =1
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - conBoardLaneHead:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              Height: =44
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Fill: =ThisItem.LaneBg
+                              RadiusTopLeft: =6
+                              RadiusTopRight: =6
+                              RadiusBottomLeft: =6
+                              RadiusBottomRight: =6
+                              PaddingLeft: =12
+                              PaddingRight: =8
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - lblBoardLaneName:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =ThisItem.LaneName
+                                    Size: =15
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ThisItem.LaneFg
+                                    FillPortions: =1
+                                    Height: =28
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Wrap: =false
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    AccessibleLabel: ="Lane " & ThisItem.LaneName
+                              - bdgBoardLaneCount:
+                                  Control: ModernBadge
+                                  Properties:
+                                    Content: =Text(CountRows(Filter(colRequests, Lane = ThisItem.LaneName)))
+                                    Fill: =ClrSurface
+                                    BorderColor: =ClrSurface
+                                    Color: =ThisItem.LaneFg
+                                    Appearance: =BadgeAppearance.Tint
+                                    Shape: =BadgeShape.Rounded
+                                    Size: =12
+                                    FontWeight: =FontWeight.Semibold
+                                    Width: =40
+                                    Height: =24
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    AccessibleLabel: =ThisItem.LaneName & ", " & CountRows(Filter(colRequests, Lane = ThisItem.LaneName)) & " requests"
+                        - lblBoardLaneEmpty:
+                            Control: ModernText
+                            Properties:
+                              Visible: =CountRows(Filter(colRequests, Lane = ThisItem.LaneName)) = 0
+                              Text: ="No requests"
+                              Size: =12
+                              Color: =ClrTextSecondary
+                              Align: =Align.Center
+                              VerticalAlign: =VerticalAlign.Middle
+                              Height: =40
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Wrap: =false
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              AccessibleLabel: ="No requests in " & ThisItem.LaneName
+                        - galBoardCards:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              Items: =SortByColumns(Filter(colRequests, Lane = ThisItem.LaneName), "DueDate", SortOrder.Ascending)
+                              Visible: =CountRows(Filter(colRequests, Lane = ThisItem.LaneName)) > 0
+                              TemplateSize: =156
+                              TemplatePadding: =6
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              ShowScrollbar: =false
+                              ShowNavigation: =false
+                              Selectable: =false
+                              Fill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =0
+                              TabIndex: =0
+                              AccessibleLabel: =ThisItem.LaneName & " requests"
+                            Children:
+                              - conBoardCard:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    Width: =Parent.TemplateWidth
+                                    Height: =Parent.TemplateHeight
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =4
+                                    PaddingTop: =10
+                                    PaddingBottom: =10
+                                    PaddingLeft: =10
+                                    PaddingRight: =10
+                                    Fill: =ClrSurface
+                                    BorderColor: =If(ThisItem.Status = "Needs Attention", ClrRed, ClrBorder)
+                                    BorderThickness: =If(ThisItem.Status = "Needs Attention", 2, 1)
+                                    RadiusTopLeft: =6
+                                    RadiusTopRight: =6
+                                    RadiusBottomLeft: =6
+                                    RadiusBottomRight: =6
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - conBoardCardTop:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          Height: =24
+                                          FillPortions: =0
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutGap: =6
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutMinWidth: =0
+                                          LayoutMinHeight: =0
+                                        Children:
+                                          - lblBoardCardNumber:
+                                              Control: ModernText
+                                              Properties:
+                                                Text: =ThisItem.Number
+                                                Size: =12
+                                                FontWeight: =FontWeight.Semibold
+                                                Color: =ClrAccent
+                                                FillPortions: =1
+                                                Height: =20
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Wrap: =false
+                                                VerticalAlign: =VerticalAlign.Middle
+                                                PaddingTop: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                AccessibleLabel: ="Request " & ThisItem.Number
+                                          - bdgBoardCardStatus:
+                                              Control: ModernBadge
+                                              Properties:
+                                                Content: =ThisItem.Status
+                                                Fill: =StatusBg(ThisItem.Status)
+                                                BorderColor: =StatusBg(ThisItem.Status)
+                                                Color: =StatusFg(ThisItem.Status)
+                                                Appearance: =BadgeAppearance.Tint
+                                                Shape: =BadgeShape.Rounded
+                                                Size: =12
+                                                Width: =136
+                                                Height: =22
+                                                FillPortions: =0
+                                                AlignInContainer: =AlignInContainer.Center
+                                                AccessibleLabel: ="Status " & ThisItem.Status
+                                    - lblBoardCardSubject:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Subject
+                                          Size: =14
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =ClrText
+                                          Wrap: =true
+                                          Height: =54
+                                          FillPortions: =0
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          VerticalAlign: =VerticalAlign.Top
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AccessibleLabel: ="Open " & ThisItem.Number & " " & ThisItem.Subject
+                                          OnSelect: |-
+                                            =Set(varSelected, LookUp(colRequests, Id = ThisItem.Id));
+                                            Navigate(DetailScreen, ScreenTransition.None)
+                                    - lblBoardCardMeta:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Recipient & " · " & ThisItem.Template
+                                          Size: =12
+                                          Color: =ClrTextSecondary
+                                          Wrap: =false
+                                          Height: =18
+                                          FillPortions: =0
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          VerticalAlign: =VerticalAlign.Middle
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AccessibleLabel: ="Recipient " & ThisItem.Recipient & ", template " & ThisItem.Template
+                                    - conBoardCardFoot:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          Height: =28
+                                          FillPortions: =0
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          LayoutGap: =6
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutMinWidth: =0
+                                          LayoutMinHeight: =0
+                                        Children:
+                                          - lblBoardCardDue:
+                                              Control: ModernText
+                                              Properties:
+                                                FillPortions: =1
+                                                Height: =20
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Wrap: =false
+                                                Size: =12
+                                                Text: =If(IsBlank(ThisItem.DueDate), "No due date", If(IsOverdue(ThisItem.DueDate, ThisItem.Status), "Overdue ", "Due ") & Text(ThisItem.DueDate, "d mmm"))
+                                                Color: =If(IsOverdue(ThisItem.DueDate, ThisItem.Status), ClrRed, ClrTextSecondary)
+                                                FontWeight: =If(IsOverdue(ThisItem.DueDate, ThisItem.Status), FontWeight.Semibold, FontWeight.Normal)
+                                                VerticalAlign: =VerticalAlign.Middle
+                                                PaddingTop: =0
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                AccessibleLabel: =Self.Text
+                                          - bdgBoardCardPriority:
+                                              Control: ModernBadge
+                                              Properties:
+                                                Content: =ThisItem.Priority
+                                                Fill: =PriorityBg(ThisItem.Priority)
+                                                BorderColor: =PriorityBg(ThisItem.Priority)
+                                                Color: =PriorityFg(ThisItem.Priority)
+                                                Appearance: =BadgeAppearance.Tint
+                                                Shape: =BadgeShape.Rounded
+                                                Size: =12
+                                                Width: =72
+                                                Height: =22
+                                                FillPortions: =0
+                                                AlignInContainer: =AlignInContainer.Center
+                                                AccessibleLabel: ="Priority " & ThisItem.Priority
+                                          - btnBoardCardOpen:
+                                              Control: ModernButton
+                                              Properties:
+                                                Icon: ="Open"
+                                                Layout: =ButtonLayout.IconOnly
+                                                Text: ="Open"
+                                                Appearance: =ButtonAppearance.Subtle
+                                                Color: =ClrAccent
+                                                BasePaletteColor: =ClrAccent
+                                                Width: =32
+                                                Height: =28
+                                                FillPortions: =0
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Tooltip: ="Open " & ThisItem.Number
+                                                AccessibleLabel: ="Open " & ThisItem.Number & " " & ThisItem.Subject
+                                                OnSelect: |-
+                                                  =Set(varSelected, LookUp(colRequests, Id = ThisItem.Id));
+                                                  Navigate(DetailScreen, ScreenTransition.None)

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>brn_briefingstudio_f5bae</Name>
+  <AppVersion>2026-11-10T23:19:56Z</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>0.0.0.0</CreatedByClientVersion>
+  <MinClientVersion>0.0.0.0</MinClientVersion>
+  <Tags>{}</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId xsi:nil="true"></GalleryItemId>
+  <BackgroundColor>RGBA(255,255,255,1)</BackgroundColor>
+  <DisplayName>Briefing Studio</DisplayName>
+  <Description></Description>
+  <CommitMessage xsi:nil="true"></CommitMessage>
+  <Publisher xsi:nil="true"></Publisher>
+  <AuthorizationReferences>[]</AuthorizationReferences>
+  <ConnectionReferences>{}</ConnectionReferences>
+  <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified","environmentVariableName":""}},"dataSources":{"briefingprofiles":{"entitySetName":"brn_profiles","logicalName":"brn_profile"},"notetemplates":{"entitySetName":"brn_templates","logicalName":"brn_template"},"briefingrequests":{"entitySetName":"brn_requests","logicalName":"brn_request"},"sourcedocuments":{"entitySetName":"brn_sourcedocuments","logicalName":"brn_sourcedocument"},"briefingactivities":{"entitySetName":"brn_activities","logicalName":"brn_activity"}}}}</DatabaseReferences>
+  <AppComponents>[]</AppComponents>
+  <AppComponentDependencies>[]</AppComponentDependencies>
+  <CanConsumeAppPass>1</CanConsumeAppPass>
+  <CanvasAppType>4</CanvasAppType>
+  <BypassConsent>0</BypassConsent>
+  <AdminControlBypassConsent>0</AdminControlBypassConsent>
+  <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <CdsDependencies>{"cdsdependencies":[{"logicalname":"brn_profile","componenttype":1},{"logicalname":"brn_template","componenttype":1},{"logicalname":"brn_request","componenttype":1},{"logicalname":"brn_sourcedocument","componenttype":1},{"logicalname":"brn_activity","componenttype":1}]}</CdsDependencies>
+  <IsCustomizable>1</IsCustomizable>
+  <CodeAppPackageUris>
+    <CodeAppPackageUri>/CanvasApps/brn_briefingstudio_f5bae_CodeAppPackages/index.html_ContentType_text/html</CodeAppPackageUri>
+    <CodeAppPackageUri>/CanvasApps/brn_briefingstudio_f5bae_CodeAppPackages/assets/index-BufQsLSg.css_ContentType_text/css</CodeAppPackageUri>
+    <CodeAppPackageUri>/CanvasApps/brn_briefingstudio_f5bae_CodeAppPackages/assets/index-DH-pJUdn.js_ContentType_application/javascript</CodeAppPackageUri>
+    <CodeAppPackageUri>/CanvasApps/brn_briefingstudio_f5bae_CodeAppPackages/assets/pdf.worker.min-CGMJWSCB.js_ContentType_application/javascript</CodeAppPackageUri>
+    <CodeAppPackageUri>/CanvasApps/brn_briefingstudio_f5bae_CodeAppPackages/favicon.svg_ContentType_image/svg+xml</CodeAppPackageUri>
+  </CodeAppPackageUris>
+</CanvasApp>

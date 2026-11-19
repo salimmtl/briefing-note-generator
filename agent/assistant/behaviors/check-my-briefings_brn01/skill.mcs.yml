@@ -1,0 +1,5 @@
+mcs.metadata:
+  componentName: check-my-briefings
+  description: Lists the user's briefing requests (as requester or reviewer) and shows the status, questions, draft summary and document links of one request.
+  schemaName: brn_BriefingAssistant.skill.check-my-briefings_brn01
+kind: InlineAgentSkill

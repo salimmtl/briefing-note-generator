@@ -1,0 +1,754 @@
+Screens:
+  OverviewScreen:
+    Properties:
+      Fill: =ClrCanvas
+    Children:
+      - conOvwRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            Width: =Parent.Width
+            Height: =Parent.Height
+            LayoutMinWidth: =0
+            LayoutMinHeight: =0
+            Fill: =ClrCanvas
+            LayoutGap: =0
+            PaddingBottom: =24
+          Children:
+            - conOvwHeader:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutWrap: =true
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.Start
+                  LayoutGap: =16
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  PaddingTop: =12
+                  PaddingBottom: =12
+                  Fill: =ClrSurface
+                  DropShadow: =DropShadow.Light
+                  FillPortions: =0
+                  Height: =If(App.Width < 1000, 112, 64)
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  AlignInContainer: =AlignInContainer.Stretch
+                Children:
+                  - lblOvwWordmark:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Briefing Board"
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        Width: =170
+                        Height: =40
+                        FillPortions: =0
+                        Wrap: =false
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: ="Briefing Board"
+                  - conOvwNav:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =4
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        Width: =320
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        AlignInContainer: =AlignInContainer.Center
+                      Children:
+                        - btnOvwNavBoard:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Board"
+                              OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =ClrText
+                              FontWeight: =FontWeight.Normal
+                              AlignInContainer: =AlignInContainer.Center
+                              AccessibleLabel: ="Board"
+                        - btnOvwNavList:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="List"
+                              OnSelect: =Navigate(ListScreen, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =ClrText
+                              FontWeight: =FontWeight.Normal
+                              AlignInContainer: =AlignInContainer.Center
+                              AccessibleLabel: ="List"
+                        - btnOvwNavOverview:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Overview"
+                              OnSelect: =Navigate(OverviewScreen, ScreenTransition.None)
+                              Width: =104
+                              Height: =36
+                              FillPortions: =0
+                              BasePaletteColor: =ClrAccent
+                              Appearance: =ButtonAppearance.Primary
+                              Color: =ClrSurface
+                              FontWeight: =FontWeight.Semibold
+                              AlignInContainer: =AlignInContainer.Center
+                              AccessibleLabel: ="Overview, current page"
+                  - conOvwHeaderSpacer:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        FillPortions: =1
+                        Height: =8
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        AlignInContainer: =AlignInContainer.Center
+                  - bdgOvwAttention:
+                      Control: ModernBadge
+                      Properties:
+                        Content: =CountRows(Filter(colRequests, Status = "Needs Attention")) & " need attention"
+                        Visible: =CountRows(Filter(colRequests, Status = "Needs Attention")) > 0
+                        Fill: =ClrRedTint
+                        BorderColor: =ClrRedTint
+                        Color: =ClrRed
+                        Appearance: =BadgeAppearance.Tint
+                        Shape: =BadgeShape.Rounded
+                        Size: =12
+                        FontWeight: =FontWeight.Semibold
+                        Width: =140
+                        Height: =28
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: =CountRows(Filter(colRequests, Status = "Needs Attention")) & " need attention"
+                  - lblOvwUpdated:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Updated " & Text(varUpdatedAt, "hh:mm:ss")
+                        Size: =12
+                        Color: =ClrTextSecondary
+                        Width: =120
+                        Height: =28
+                        FillPortions: =0
+                        Wrap: =false
+                        Align: =Align.Right
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: ="Data updated at " & Text(varUpdatedAt, "hh:mm:ss")
+                  - btnOvwRefresh:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Refresh"
+                        Icon: ="ArrowClockwise"
+                        Layout: =ButtonLayout.IconBefore
+                        Appearance: =ButtonAppearance.Outline
+                        BasePaletteColor: =ClrAccent
+                        Width: =112
+                        Height: =36
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: ="Refresh data"
+                        OnSelect: |-
+                          =LoadBriefings();
+                          Set(varUpdatedAt, Now());
+                          Set(varSelected, LookUp(colRequests, Id = varSelected.Id))
+            - conOvwTitleRow:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  FillPortions: =0
+                  Height: =80
+                  PaddingTop: =24
+                  PaddingBottom: =8
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =16
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblOvwTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Overview"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                        Height: =40
+                        Wrap: =false
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: ="Overview"
+                  - lblOvwAsOf:
+                      Control: ModernText
+                      Properties:
+                        Text: ="As of " & Text(varUpdatedAt, "d mmm yyyy hh:mm") & " · " & CountRows(colRequests) & " requests"
+                        Size: =12
+                        Color: =ClrTextSecondary
+                        Align: =Align.Right
+                        Width: =320
+                        Height: =24
+                        FillPortions: =0
+                        Wrap: =false
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        AccessibleLabel: =Self.Text
+            - galOvwKpis:
+                Control: Gallery
+                Variant: Vertical
+                Properties:
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  FillPortions: =0
+                  TemplateSize: =120
+                  TemplatePadding: =6
+                  WrapCount: =If(Self.Width >= 1100, 6, 3)
+                  Height: =With({r:RoundUp(6 / If(Self.Width >= 1100, 6, 3), 0)}, r * 120 + (r + 1) * 6)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  BorderThickness: =0
+                  ShowScrollbar: =false
+                  Selectable: =false
+                  AccessibleLabel: ="Key figures"
+                  Items: |-
+                    =Table(
+                        {Label: "Open", Value: CountRows(Filter(colRequests, !(Status in ["Delivered", "Cancelled"]))), Hint: "Not delivered or cancelled", Fg: ClrAccent},
+                        {Label: "Needs info", Value: CountRows(Filter(colRequests, Status = "Needs Info")), Hint: "Waiting for the requester", Fg: RGBA(188, 75, 9, 1)},
+                        {Label: "In review", Value: CountRows(Filter(colRequests, Status = "In Review")), Hint: "Waiting for the reviewer", Fg: RGBA(92, 46, 145, 1)},
+                        {Label: "Delivered this month", Value: CountRows(Filter(colRequests, Status = "Delivered" && !IsBlank(DeliveredOn) && Year(DeliveredOn) = Year(Today()) && Month(DeliveredOn) = Month(Today()))), Hint: Text(Today(), "mmmm yyyy"), Fg: RGBA(16, 124, 16, 1)},
+                        {Label: "Overdue", Value: CountRows(Filter(colRequests, IsOverdue(DueDate, Status))), Hint: "Past due, not yet approved", Fg: ClrRed},
+                        {Label: "Needs attention", Value: CountRows(Filter(colRequests, Status = "Needs Attention")), Hint: "A workflow failed", Fg: ClrRed}
+                    )
+                Children:
+                  - conOvwKpi:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        Width: =Parent.TemplateWidth
+                        Height: =Parent.TemplateHeight
+                        PaddingTop: =16
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        LayoutGap: =2
+                        Fill: =ClrSurface
+                        BorderColor: =ClrBorder
+                        BorderThickness: =1
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOvwKpiValue:
+                            Control: ModernText
+                            Properties:
+                              Text: =Text(ThisItem.Value)
+                              Size: =32
+                              FontWeight: =FontWeight.Bold
+                              Color: =ThisItem.Fg
+                              Height: =44
+                              FillPortions: =0
+                              Wrap: =false
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AccessibleLabel: =ThisItem.Label & " " & ThisItem.Value
+                        - lblOvwKpiLabel:
+                            Control: ModernText
+                            Properties:
+                              Text: =ThisItem.Label
+                              Size: =14
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =20
+                              FillPortions: =0
+                              Wrap: =false
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AccessibleLabel: =ThisItem.Label
+                        - lblOvwKpiHint:
+                            Control: ModernText
+                            Properties:
+                              Text: =ThisItem.Hint
+                              Size: =12
+                              Color: =ClrTextSecondary
+                              Height: =18
+                              FillPortions: =0
+                              Wrap: =false
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AccessibleLabel: =ThisItem.Hint
+            - conOvwCharts:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =If(Self.Width >= 900, LayoutDirection.Horizontal, LayoutDirection.Vertical)
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  FillPortions: =0
+                  Height: =If(Self.Width >= 900, 472, 928)
+                  LayoutGap: =16
+                  PaddingTop: =16
+                  PaddingBottom: =16
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conOvwStatusPanel:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        FillPortions: =1
+                        AlignInContainer: =AlignInContainer.Stretch
+                        PaddingTop: =16
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        LayoutGap: =8
+                        Fill: =ClrSurface
+                        BorderColor: =ClrBorder
+                        BorderThickness: =1
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOvwStatusHead:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Requests by status"
+                              Size: =18
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =28
+                              FillPortions: =0
+                              Wrap: =false
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AccessibleLabel: ="Requests by status"
+                        - galOvwStatus:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              TemplateSize: =32
+                              TemplatePadding: =0
+                              ShowScrollbar: =false
+                              Selectable: =false
+                              BorderThickness: =0
+                              AccessibleLabel: ="Requests by status"
+                              Items: |-
+                                =ForAll(StatusOptions As s, {Status: s.Value, Count: CountRows(Filter(colRequests, Status = s.Value))})
+                            Children:
+                              - conOvwStatusRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    Width: =Parent.TemplateWidth
+                                    Height: =Parent.TemplateHeight
+                                    LayoutGap: =12
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - lblOvwStatusName:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Status
+                                          Size: =13
+                                          Color: =ClrText
+                                          Width: =150
+                                          Height: =20
+                                          FillPortions: =0
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AccessibleLabel: =ThisItem.Status
+                                    - pbOvwStatus:
+                                        Control: ModernProgressBar
+                                        Properties:
+                                          Value: =ThisItem.Count
+                                          Max: =Max(1, CountRows(colRequests))
+                                          BasePaletteColor: =StatusFg(ThisItem.Status)
+                                          ProgressColor: =ProgressColor.Brand
+                                          Thickness: =ProgressThickness.Large
+                                          Shape: =ProgressShape.Rounded
+                                          FillPortions: =1
+                                          LayoutMinWidth: =0
+                                          Height: =8
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AccessibleLabel: =ThisItem.Status & ", " & ThisItem.Count & " requests"
+                                    - lblOvwStatusCount:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =Text(ThisItem.Count)
+                                          Size: =13
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =ClrText
+                                          Align: =Align.Right
+                                          Width: =36
+                                          Height: =20
+                                          FillPortions: =0
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AccessibleLabel: =ThisItem.Count & " " & ThisItem.Status
+                  - conOvwTemplatePanel:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        FillPortions: =1
+                        AlignInContainer: =AlignInContainer.Stretch
+                        PaddingTop: =16
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        LayoutGap: =8
+                        Fill: =ClrSurface
+                        BorderColor: =ClrBorder
+                        BorderThickness: =1
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOvwTemplateHead:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Requests by template"
+                              Size: =18
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =28
+                              FillPortions: =0
+                              Wrap: =false
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AccessibleLabel: ="Requests by template"
+                        - galOvwTemplate:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              TemplateSize: =32
+                              TemplatePadding: =0
+                              ShowScrollbar: =true
+                              Selectable: =false
+                              BorderThickness: =0
+                              AccessibleLabel: ="Requests by template"
+                              Items: |-
+                                =SortByColumns(
+                                    ForAll(
+                                        Filter(Distinct(colRequests, Template), !IsBlank(Value)) As t,
+                                        {Template: t.Value, Count: CountRows(Filter(colRequests, Template = t.Value))}
+                                    ),
+                                    "Count", SortOrder.Descending
+                                )
+                            Children:
+                              - conOvwTemplateRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    Width: =Parent.TemplateWidth
+                                    Height: =Parent.TemplateHeight
+                                    LayoutGap: =12
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - lblOvwTemplateName:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Template
+                                          Size: =13
+                                          Color: =ClrText
+                                          Width: =220
+                                          Height: =20
+                                          FillPortions: =0
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AccessibleLabel: =ThisItem.Template
+                                    - pbOvwTemplate:
+                                        Control: ModernProgressBar
+                                        Properties:
+                                          Value: =ThisItem.Count
+                                          Max: =Max(1, CountRows(colRequests))
+                                          BasePaletteColor: =ClrAccent
+                                          ProgressColor: =ProgressColor.Brand
+                                          Thickness: =ProgressThickness.Large
+                                          Shape: =ProgressShape.Rounded
+                                          FillPortions: =1
+                                          LayoutMinWidth: =0
+                                          Height: =8
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AccessibleLabel: =ThisItem.Template & ", " & ThisItem.Count & " requests"
+                                    - lblOvwTemplateCount:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =Text(ThisItem.Count)
+                                          Size: =13
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =ClrText
+                                          Align: =Align.Right
+                                          Width: =36
+                                          Height: =20
+                                          FillPortions: =0
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AccessibleLabel: =ThisItem.Count & " " & ThisItem.Template
+            - conOvwRecent:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  Width: =Parent.Width - 48
+                  AlignInContainer: =AlignInContainer.Center
+                  FillPortions: =0
+                  Height: =With({n:Min(8, CountRows(colActivities))}, 68 + If(n = 0, 40, n * 52))
+                  PaddingTop: =16
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  LayoutGap: =8
+                  Fill: =ClrSurface
+                  BorderColor: =ClrBorder
+                  BorderThickness: =1
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblOvwRecentHead:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Recent activity"
+                        Size: =18
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrText
+                        Height: =28
+                        FillPortions: =0
+                        Wrap: =false
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AccessibleLabel: ="Recent activity"
+                  - galOvwRecent:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Items: =FirstN(SortByColumns(colActivities, "CreatedOn", SortOrder.Descending), 8)
+                        TemplateSize: =52
+                        TemplatePadding: =0
+                        Height: =Min(8, CountRows(colActivities)) * 52
+                        Visible: =CountRows(colActivities) > 0
+                        ShowScrollbar: =false
+                        Selectable: =false
+                        BorderThickness: =0
+                        TabIndex: =0
+                        AccessibleLabel: ="Recent activity"
+                      Children:
+                        - conOvwRecentRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              LayoutGap: =12
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              BorderColor: =ClrBorder
+                              BorderThickness: =1
+                              PaddingLeft: =8
+                              PaddingRight: =8
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - lblOvwRecentWhen:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =Text(ThisItem.CreatedOn, "d mmm hh:mm")
+                                    Size: =12
+                                    Color: =ClrTextSecondary
+                                    Width: =110
+                                    Height: =20
+                                    FillPortions: =0
+                                    Wrap: =false
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    AccessibleLabel: =Text(ThisItem.CreatedOn, "d mmm hh:mm")
+                              - lblOvwRecentNumber:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =LookUp(colRequests, Id = ThisItem.RequestId).Number
+                                    Size: =13
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ClrAccent
+                                    Width: =90
+                                    Height: =20
+                                    FillPortions: =0
+                                    Wrap: =false
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    AccessibleLabel: =Self.Text
+                              - conOvwRecentText:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    FillPortions: =1
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                    Height: =40
+                                    LayoutGap: =2
+                                    AlignInContainer: =AlignInContainer.Center
+                                  Children:
+                                    - lblOvwRecentTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Title & " · " & ThisItem.Actor
+                                          Size: =14
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =ClrText
+                                          Height: =20
+                                          FillPortions: =0
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          AccessibleLabel: =Self.Text
+                                    - lblOvwRecentDetails:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Details
+                                          Size: =12
+                                          Color: =ClrTextSecondary
+                                          Height: =18
+                                          FillPortions: =0
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          AccessibleLabel: =ThisItem.Details
+                              - btnOvwRecentOpen:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="Open"
+                                    Appearance: =ButtonAppearance.Subtle
+                                    Color: =ClrAccent
+                                    BasePaletteColor: =ClrAccent
+                                    Width: =72
+                                    Height: =32
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Visible: =!IsBlank(LookUp(colRequests, Id = ThisItem.RequestId).Id)
+                                    AccessibleLabel: ="Open " & LookUp(colRequests, Id = ThisItem.RequestId).Number
+                                    OnSelect: |-
+                                      =Set(varSelected, LookUp(colRequests, Id = ThisItem.RequestId));
+                                      Navigate(DetailScreen, ScreenTransition.None)
+                  - lblOvwRecentEmpty:
+                      Control: ModernText
+                      Properties:
+                        Visible: =CountRows(colActivities) = 0
+                        Text: ="No activity recorded yet."
+                        Size: =14
+                        Color: =ClrTextSecondary
+                        Height: =40
+                        FillPortions: =0
+                        Wrap: =false
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AccessibleLabel: ="No activity recorded yet."

@@ -1,0 +1,410 @@
+App:
+  Properties:
+    Formulas: |-
+      =// ---------- Palette ----------
+      ClrCanvas = RGBA(245, 246, 248, 1);
+      ClrSurface = RGBA(255, 255, 255, 1);
+      ClrBorder = RGBA(225, 228, 232, 1);
+      ClrText = RGBA(36, 36, 36, 1);
+      ClrTextSecondary = RGBA(97, 97, 97, 1);
+      ClrAccent = RGBA(15, 108, 189, 1);
+      ClrAccentHover = RGBA(17, 94, 163, 1);
+      ClrAccentTint = RGBA(235, 243, 252, 1);
+      ClrRed = RGBA(196, 49, 75, 1);
+      ClrRedTint = RGBA(253, 231, 233, 1);
+
+      // ---------- Reference lists ----------
+      Lanes = Table(
+          {LaneName: "In progress", LaneOrder: 1, LaneFg: RGBA(15, 108, 189, 1), LaneBg: RGBA(235, 243, 252, 1)},
+          {LaneName: "Needs info", LaneOrder: 2, LaneFg: RGBA(188, 75, 9, 1), LaneBg: RGBA(255, 244, 206, 1)},
+          {LaneName: "In review", LaneOrder: 3, LaneFg: RGBA(92, 46, 145, 1), LaneBg: RGBA(239, 233, 246, 1)},
+          {LaneName: "Approved", LaneOrder: 4, LaneFg: RGBA(16, 124, 16, 1), LaneBg: RGBA(223, 246, 221, 1)},
+          {LaneName: "Delivered", LaneOrder: 5, LaneFg: RGBA(16, 124, 16, 1), LaneBg: RGBA(223, 246, 221, 1)}
+      );
+      StatusOptions = ["Draft", "Submitted", "Drafting", "Needs Info", "Info Provided", "In Review", "Revision Requested", "Approved", "Delivered", "Cancelled", "Needs Attention"];
+
+      // ---------- Pure helpers ----------
+      LaneOf(status: Text): Text = Switch(
+          status,
+          "Needs Info", "Needs info",
+          "In Review", "In review",
+          "Approved", "Approved",
+          "Delivered", "Delivered",
+          "Cancelled", "Cancelled",
+          "In progress"
+      );
+      IsOverdue(due: Date, status: Text): Boolean =
+          !IsBlank(due) && due < Today() && !(status in ["Approved", "Delivered", "Cancelled"]);
+      StatusFg(status: Text): Color = Switch(
+          status,
+          "Needs Info", RGBA(188, 75, 9, 1),
+          "In Review", RGBA(92, 46, 145, 1),
+          "Approved", RGBA(16, 124, 16, 1),
+          "Delivered", RGBA(16, 124, 16, 1),
+          "Needs Attention", RGBA(196, 49, 75, 1),
+          "Draft", RGBA(97, 97, 97, 1),
+          "Cancelled", RGBA(97, 97, 97, 1),
+          RGBA(15, 108, 189, 1)
+      );
+      StatusBg(status: Text): Color = Switch(
+          status,
+          "Needs Info", RGBA(255, 244, 206, 1),
+          "In Review", RGBA(239, 233, 246, 1),
+          "Approved", RGBA(223, 246, 221, 1),
+          "Delivered", RGBA(223, 246, 221, 1),
+          "Needs Attention", RGBA(253, 231, 233, 1),
+          "Draft", RGBA(240, 240, 240, 1),
+          "Cancelled", RGBA(240, 240, 240, 1),
+          RGBA(235, 243, 252, 1)
+      );
+      PriorityFg(priority: Text): Color = Switch(
+          priority,
+          "Urgent", RGBA(196, 49, 75, 1),
+          "Priority", RGBA(188, 75, 9, 1),
+          RGBA(97, 97, 97, 1)
+      );
+      PriorityBg(priority: Text): Color = Switch(
+          priority,
+          "Urgent", RGBA(253, 231, 233, 1),
+          "Priority", RGBA(255, 244, 206, 1),
+          RGBA(240, 240, 240, 1)
+      );
+      HtmlEsc(t: Text): Text = Substitute(Substitute(Substitute(t, "&", "&amp;"), "<", "&lt;"), ">", "&gt;");
+      SectionCount(json: Text): Number = If(IsBlank(Trim(json)), 0, CountRows(Table(ParseJSON(json))));
+      SectionsHtml(json: Text): Text = If(
+          IsBlank(Trim(json)),
+          "",
+          Concat(
+              Table(ParseJSON(json)) As sec,
+              "<div style='font-family:Segoe UI;font-weight:600;font-size:16px;color:#242424;margin:16px 0 6px 0'>" &
+              HtmlEsc(Text(sec.Value.heading)) & "</div>" &
+              Concat(
+                  Split(Text(sec.Value.body), Char(10)) As ln,
+                  If(
+                      StartsWith(Trim(ln.Value), "- "),
+                      "<div style='font-family:Segoe UI;font-size:14px;color:#242424;margin:3px 0 3px 18px'>&bull; " & HtmlEsc(Mid(Trim(ln.Value), 3)) & "</div>",
+                      If(
+                          IsBlank(Trim(ln.Value)),
+                          "",
+                          "<p style='font-family:Segoe UI;font-size:14px;color:#242424;margin:4px 0'>" & HtmlEsc(Trim(ln.Value)) & "</p>"
+                      )
+                  )
+              )
+          )
+      );
+
+      // ---------- Data layer (MOCK). Replace the body with docs/canvas-board-dataverse-loader.md ----------
+      // Named LoadBriefings (not LoadData) because LoadData is a built-in offline function.
+      LoadBriefings(): Void = {
+          ClearCollect(
+              colRequests,
+              AddColumns(
+                  Table(
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000001"),
+                          Number: "BN-00001",
+                          Subject: "Project Lighthouse: Fabrikam Analytics acquisition",
+                          Status: "In Review",
+                          Template: "Briefing Note for Decision",
+                          Profile: "Contoso Ltd",
+                          Requester: "Priya Nair",
+                          Recipient: "Daniel Brooks",
+                          RecipientTitle: "Chief Executive Officer",
+                          DueDate: DateAdd(Today(), 2, TimeUnit.Days),
+                          Priority: "Priority",
+                          Classification: "Confidential",
+                          Language: "English",
+                          KeyMessage: "Acquiring Fabrikam Analytics at the proposed valuation is supportable if the data-platform integration risk is ring-fenced.",
+                          NoteTitle: "Project Lighthouse: recommendation on the Fabrikam Analytics acquisition",
+                          SectionsJson: "[{""heading"":""Purpose"",""body"":""Seek the CEO's decision on submitting a binding offer for Fabrikam Analytics [S2].""},{""heading"":""Background"",""body"":""Fabrikam Analytics builds retail demand-forecasting tools used by 140 mid-market clients [S1].\n- Revenue grew 31% year over year to $48M [S3]\n- Two of the top five clients have change-of-control clauses [S1]""},{""heading"":""Recommendation"",""body"":""Approve a binding offer of up to $410M, conditional on retention agreements for the platform team [S2].""}]",
+                          Verification: "Valuation range relies on management forecasts [S3]; confirm client clause status with Legal.",
+                          Confidence: "High",
+                          Questions: "",
+                          DraftPdf: "https://contoso.sharepoint.com/sites/briefings/Drafts/BN-00001-v2.pdf",
+                          FinalPdf: "",
+                          Folder: "https://contoso.sharepoint.com/sites/briefings/BN-00001",
+                          Reviewer: "elena.ruiz@contoso.com",
+                          LastError: "",
+                          WordCount: 640,
+                          Version: 2,
+                          SubmittedOn: DateAdd(Now(), -4, TimeUnit.Days),
+                          DraftedOn: DateAdd(Now(), -1, TimeUnit.Days),
+                          DeliveredOn: Blank(),
+                          CreatedOn: DateAdd(Now(), -5, TimeUnit.Days)
+                      },
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000002"),
+                          Number: "BN-00002",
+                          Subject: "Wildfire season readiness for the Minister",
+                          Status: "Needs Info",
+                          Template: "Briefing Note for Information",
+                          Profile: "Department of Natural Resources",
+                          Requester: "Marc Tremblay",
+                          Recipient: "Hon. Maya Thompson",
+                          RecipientTitle: "Minister of Natural Resources",
+                          DueDate: DateAdd(Today(), 5, TimeUnit.Days),
+                          Priority: "Urgent",
+                          Classification: "Protected A",
+                          Language: "English",
+                          KeyMessage: "",
+                          NoteTitle: "",
+                          SectionsJson: "",
+                          Verification: "",
+                          Confidence: "",
+                          Questions: "1. Should the note cover the federal cost-sharing request?" & Char(10) & "2. Which regions should be named as highest risk?",
+                          DraftPdf: "",
+                          FinalPdf: "",
+                          Folder: "",
+                          Reviewer: "a.okafor@nrdept.gov",
+                          LastError: "",
+                          WordCount: 0,
+                          Version: 0,
+                          SubmittedOn: DateAdd(Now(), -2, TimeUnit.Days),
+                          DraftedOn: Blank(),
+                          DeliveredOn: Blank(),
+                          CreatedOn: DateAdd(Now(), -2, TimeUnit.Days)
+                      },
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000003"),
+                          Number: "BN-00003",
+                          Subject: "Q3 cybersecurity incident summary",
+                          Status: "Drafting",
+                          Template: "Issue Note",
+                          Profile: "Ministry of Digital Services",
+                          Requester: "Sofia Martins",
+                          Recipient: "Robert Chen",
+                          RecipientTitle: "Deputy Minister",
+                          DueDate: DateAdd(Today(), -1, TimeUnit.Days),
+                          Priority: "Urgent",
+                          Classification: "Protected B",
+                          Language: "English",
+                          KeyMessage: "",
+                          NoteTitle: "",
+                          SectionsJson: "",
+                          Verification: "",
+                          Confidence: "",
+                          Questions: "",
+                          DraftPdf: "",
+                          FinalPdf: "",
+                          Folder: "",
+                          Reviewer: "j.wong@mds.gov",
+                          LastError: "",
+                          WordCount: 0,
+                          Version: 0,
+                          SubmittedOn: DateAdd(Now(), -3, TimeUnit.Days),
+                          DraftedOn: Blank(),
+                          DeliveredOn: Blank(),
+                          CreatedOn: DateAdd(Now(), -3, TimeUnit.Days)
+                      },
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000004"),
+                          Number: "BN-00004",
+                          Subject: "Meeting with Northwind Shipping on port access",
+                          Status: "Approved",
+                          Template: "Meeting or Event Brief",
+                          Profile: "Ministry of Transport",
+                          Requester: "Liam O'Connor",
+                          Recipient: "Hon. Maya Thompson",
+                          RecipientTitle: "Minister of Natural Resources",
+                          DueDate: DateAdd(Today(), 1, TimeUnit.Days),
+                          Priority: "Priority",
+                          Classification: "Unclassified",
+                          Language: "English",
+                          KeyMessage: "Northwind will ask for extended berth hours; the Minister can commit to a joint review but not to new funding.",
+                          NoteTitle: "Meeting brief: Northwind Shipping, port access",
+                          SectionsJson: "[{""heading"":""Meeting objective"",""body"":""Hear Northwind's port-access concerns and agree on next steps [S1].""},{""heading"":""Key points"",""body"":""- Northwind handles 22% of container volume at the port [S2]\n- Night-time berth limits cost the company an estimated $3M a year [S1]\n- A joint review can start in January [S2]""}]",
+                          Verification: "Volume figure is from the 2025 port authority report [S2].",
+                          Confidence: "Medium",
+                          Questions: "",
+                          DraftPdf: "https://contoso.sharepoint.com/sites/briefings/Drafts/BN-00004-v1.pdf",
+                          FinalPdf: "",
+                          Folder: "https://contoso.sharepoint.com/sites/briefings/BN-00004",
+                          Reviewer: "k.patel@transport.gov",
+                          LastError: "",
+                          WordCount: 410,
+                          Version: 1,
+                          SubmittedOn: DateAdd(Now(), -6, TimeUnit.Days),
+                          DraftedOn: DateAdd(Now(), -5, TimeUnit.Days),
+                          DeliveredOn: Blank(),
+                          CreatedOn: DateAdd(Now(), -6, TimeUnit.Days)
+                      },
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000005"),
+                          Number: "BN-00005",
+                          Subject: "Rural broadband funding update",
+                          Status: "Delivered",
+                          Template: "Briefing Note for Decision",
+                          Profile: "Ministry of Digital Services",
+                          Requester: "Sofia Martins",
+                          Recipient: "Robert Chen",
+                          RecipientTitle: "Deputy Minister",
+                          DueDate: DateAdd(Today(), -4, TimeUnit.Days),
+                          Priority: "Routine",
+                          Classification: "Unclassified",
+                          Language: "French",
+                          KeyMessage: "Reallocating $12M of unspent intake funds would connect 9,000 more rural households by 2027.",
+                          NoteTitle: "Rural broadband: reallocation of unspent funds",
+                          SectionsJson: "[{""heading"":""Issue"",""body"":""Intake 2 of the broadband fund is $12M under-subscribed [S1].""},{""heading"":""Options"",""body"":""- Reallocate to Intake 3 projects already assessed [S1]\n- Return funds to the fiscal framework [S2]""},{""heading"":""Recommendation"",""body"":""Reallocate to Intake 3 to connect about 9,000 households [S1].""}]",
+                          Verification: "Household estimate assumes current per-connection costs [S1].",
+                          Confidence: "High",
+                          Questions: "",
+                          DraftPdf: "https://contoso.sharepoint.com/sites/briefings/Drafts/BN-00005-v1.pdf",
+                          FinalPdf: "https://contoso.sharepoint.com/sites/briefings/Final/BN-00005.pdf",
+                          Folder: "https://contoso.sharepoint.com/sites/briefings/BN-00005",
+                          Reviewer: "j.wong@mds.gov",
+                          LastError: "",
+                          WordCount: 520,
+                          Version: 1,
+                          SubmittedOn: DateAdd(Now(), -9, TimeUnit.Days),
+                          DraftedOn: DateAdd(Now(), -8, TimeUnit.Days),
+                          DeliveredOn: DateAdd(Now(), -1, TimeUnit.Hours),
+                          CreatedOn: DateAdd(Now(), -9, TimeUnit.Days)
+                      },
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000006"),
+                          Number: "BN-00006",
+                          Subject: "Supplier pricing dispute with Litware",
+                          Status: "Needs Attention",
+                          Template: "Issue Note",
+                          Profile: "Contoso Ltd",
+                          Requester: "Priya Nair",
+                          Recipient: "Daniel Brooks",
+                          RecipientTitle: "Chief Executive Officer",
+                          DueDate: DateAdd(Today(), -3, TimeUnit.Days),
+                          Priority: "Priority",
+                          Classification: "Internal",
+                          Language: "English",
+                          KeyMessage: "",
+                          NoteTitle: "",
+                          SectionsJson: "",
+                          Verification: "",
+                          Confidence: "",
+                          Questions: "",
+                          DraftPdf: "",
+                          FinalPdf: "",
+                          Folder: "",
+                          Reviewer: "elena.ruiz@contoso.com",
+                          LastError: "BN 1 workflow: the Writer agent did not respond within 10 minutes.",
+                          WordCount: 0,
+                          Version: 0,
+                          SubmittedOn: DateAdd(Now(), -4, TimeUnit.Days),
+                          DraftedOn: Blank(),
+                          DeliveredOn: Blank(),
+                          CreatedOn: DateAdd(Now(), -4, TimeUnit.Days)
+                      },
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000007"),
+                          Number: "BN-00007",
+                          Subject: "Office consolidation options",
+                          Status: "Cancelled",
+                          Template: "Executive Summary",
+                          Profile: "Contoso Ltd",
+                          Requester: "Tom Becker",
+                          Recipient: "Daniel Brooks",
+                          RecipientTitle: "Chief Executive Officer",
+                          DueDate: DateAdd(Today(), -10, TimeUnit.Days),
+                          Priority: "Routine",
+                          Classification: "Internal",
+                          Language: "English",
+                          KeyMessage: "",
+                          NoteTitle: "",
+                          SectionsJson: "",
+                          Verification: "",
+                          Confidence: "",
+                          Questions: "",
+                          DraftPdf: "",
+                          FinalPdf: "",
+                          Folder: "",
+                          Reviewer: "",
+                          LastError: "",
+                          WordCount: 0,
+                          Version: 0,
+                          SubmittedOn: DateAdd(Now(), -15, TimeUnit.Days),
+                          DraftedOn: Blank(),
+                          DeliveredOn: Blank(),
+                          CreatedOn: DateAdd(Now(), -15, TimeUnit.Days)
+                      },
+                      {
+                          Id: GUID("a1000000-0000-0000-0000-000000000008"),
+                          Number: "BN-00008",
+                          Subject: "2027 budget pressures and options",
+                          Status: "In Review",
+                          Template: "Briefing Note for Decision",
+                          Profile: "Ministry of Digital Services",
+                          Requester: "Amira Haddad",
+                          Recipient: "Robert Chen",
+                          RecipientTitle: "Deputy Minister",
+                          DueDate: DateAdd(Today(), 7, TimeUnit.Days),
+                          Priority: "Routine",
+                          Classification: "Protected A",
+                          Language: "English",
+                          KeyMessage: "A $7M pressure in 2027 can be absorbed by deferring two IT refresh projects without service impact.",
+                          NoteTitle: "2027 budget pressures: options to absorb",
+                          SectionsJson: "[{""heading"":""Summary"",""body"":""The department faces a $7M pressure in 2027, mostly from licence costs [S1].""},{""heading"":""Options"",""body"":""- Defer two IT refresh projects [S1]\n- Seek new funding in the spring update [S2]""}]",
+                          Verification: "Licence cost growth is an estimate from the vendor [S2].",
+                          Confidence: "Medium",
+                          Questions: "",
+                          DraftPdf: "https://contoso.sharepoint.com/sites/briefings/Drafts/BN-00008-v1.pdf",
+                          FinalPdf: "",
+                          Folder: "https://contoso.sharepoint.com/sites/briefings/BN-00008",
+                          Reviewer: "j.wong@mds.gov",
+                          LastError: "",
+                          WordCount: 380,
+                          Version: 1,
+                          SubmittedOn: DateAdd(Now(), -2, TimeUnit.Days),
+                          DraftedOn: DateAdd(Now(), -6, TimeUnit.Hours),
+                          DeliveredOn: Blank(),
+                          CreatedOn: DateAdd(Now(), -2, TimeUnit.Days)
+                      }
+                  ),
+                  Lane, LaneOf(Status)
+              )
+          );
+          ClearCollect(
+              colSources,
+              Table(
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000001"), Label: "S1", FileName: "Fabrikam_due_diligence_summary.pdf", DocType: "Report", Characters: 48210, Summary: "Client base, contracts and change-of-control clauses."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000001"), Label: "S2", FileName: "Board_memo_Lighthouse.docx", DocType: "Memo or briefing", Characters: 12840, Summary: "Deal rationale and proposed offer ceiling."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000001"), Label: "S3", FileName: "Fabrikam_financials_FY26.xlsx", DocType: "Data or spreadsheet", Characters: 30500, Summary: "Revenue, margin and forecast figures."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000002"), Label: "S1", FileName: "Wildfire_outlook_2027.pdf", DocType: "Report", Characters: 61020, Summary: "Seasonal risk outlook by region."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000002"), Label: "S2", FileName: "Cost_sharing_letter.msg", DocType: "Email or correspondence", Characters: 4200, Summary: "Federal cost-sharing request."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000003"), Label: "S1", FileName: "Incident_report_Q3.docx", DocType: "Report", Characters: 22300, Summary: "Timeline and impact of three incidents."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000003"), Label: "S2", FileName: "CISO_update.pptx", DocType: "Presentation", Characters: 9800, Summary: "Remediation status and next steps."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000004"), Label: "S1", FileName: "Northwind_letter.pdf", DocType: "Email or correspondence", Characters: 5600, Summary: "Northwind's concerns about berth hours."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000004"), Label: "S2", FileName: "Port_authority_report_2025.pdf", DocType: "Report", Characters: 74100, Summary: "Container volumes by operator."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000005"), Label: "S1", FileName: "Broadband_intake2_results.xlsx", DocType: "Data or spreadsheet", Characters: 18750, Summary: "Uptake and unspent funds by intake."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000005"), Label: "S2", FileName: "Treasury_guidance.pdf", DocType: "Memo or briefing", Characters: 8300, Summary: "Rules for returning unspent funds."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000006"), Label: "S1", FileName: "Litware_contract_extract.pdf", DocType: "Other", Characters: 15400, Summary: "Pricing clauses under dispute."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000008"), Label: "S1", FileName: "Budget_forecast_2027.xlsx", DocType: "Data or spreadsheet", Characters: 26900, Summary: "Pressures by program and cost driver."},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000008"), Label: "S2", FileName: "Vendor_licence_notice.msg", DocType: "Email or correspondence", Characters: 3100, Summary: "Announced licence price increase."}
+              )
+          );
+          ClearCollect(
+              colActivities,
+              Table(
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000001"), Title: "Request submitted", Actor: "Requester", ActivityType: "Submitted", Details: "Submitted from Briefing Studio with 3 sources.", CreatedOn: DateAdd(Now(), -4, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000001"), Title: "Draft 1 ready", Actor: "Briefing Note Writer", ActivityType: "Draft ready", Details: "640 words, confidence High.", CreatedOn: DateAdd(Now(), -3, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000001"), Title: "Revision requested", Actor: "Reviewer", ActivityType: "Revision requested", Details: "Add the retention condition to the recommendation.", CreatedOn: DateAdd(Now(), -2, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000001"), Title: "Draft 2 ready", Actor: "Briefing Note Writer", ActivityType: "Draft ready", Details: "Recommendation updated with retention condition.", CreatedOn: DateAdd(Now(), -1, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000002"), Title: "Request submitted", Actor: "Requester", ActivityType: "Submitted", Details: "Submitted from Briefing Assistant.", CreatedOn: DateAdd(Now(), -2, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000002"), Title: "Clarification requested", Actor: "Briefing Note Writer", ActivityType: "Clarification requested", Details: "2 questions sent to the requester.", CreatedOn: DateAdd(Now(), -1, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000003"), Title: "Request submitted", Actor: "Requester", ActivityType: "Submitted", Details: "Submitted from Briefing Studio.", CreatedOn: DateAdd(Now(), -3, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000003"), Title: "Drafting started", Actor: "Workflow", ActivityType: "Drafting started", Details: "BN 1 workflow started the Writer.", CreatedOn: DateAdd(Now(), -2, TimeUnit.Hours)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000004"), Title: "Draft 1 ready", Actor: "Briefing Note Writer", ActivityType: "Draft ready", Details: "410 words, confidence Medium.", CreatedOn: DateAdd(Now(), -5, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000004"), Title: "Approved", Actor: "Reviewer", ActivityType: "Approved", Details: "Approved without changes.", CreatedOn: DateAdd(Now(), -3, TimeUnit.Hours)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000005"), Title: "Approved", Actor: "Reviewer", ActivityType: "Approved", Details: "Approved for delivery.", CreatedOn: DateAdd(Now(), -2, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000005"), Title: "Delivered", Actor: "Workflow", ActivityType: "Delivered", Details: "Final PDF filed and emailed to the recipient.", CreatedOn: DateAdd(Now(), -1, TimeUnit.Hours)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000006"), Title: "Request submitted", Actor: "Requester", ActivityType: "Submitted", Details: "Submitted from Briefing Studio.", CreatedOn: DateAdd(Now(), -4, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000006"), Title: "Drafting failed", Actor: "Workflow", ActivityType: "Failed", Details: "Writer agent timed out; request flagged.", CreatedOn: DateAdd(Now(), -4, TimeUnit.Hours)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000007"), Title: "Request cancelled", Actor: "Requester", ActivityType: "Cancelled", Details: "No longer needed after the board meeting.", CreatedOn: DateAdd(Now(), -12, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000008"), Title: "Request submitted", Actor: "Requester", ActivityType: "Submitted", Details: "Submitted from Briefing Notes Hub.", CreatedOn: DateAdd(Now(), -2, TimeUnit.Days)},
+                  {RequestId: GUID("a1000000-0000-0000-0000-000000000008"), Title: "Draft 1 ready", Actor: "Briefing Note Writer", ActivityType: "Draft ready", Details: "380 words, confidence Medium.", CreatedOn: DateAdd(Now(), -6, TimeUnit.Hours)}
+              )
+          );
+          Set(varUpdatedAt, Now())
+      };
+    OnStart: |-
+      =LoadBriefings();
+      Set(varUpdatedAt, Now());
+      Set(varSelected, First(colRequests))
+    StartScreen: =Screen1

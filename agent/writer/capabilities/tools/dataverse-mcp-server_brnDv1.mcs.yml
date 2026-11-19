@@ -1,0 +1,12 @@
+mcs.metadata:
+  componentName: Dataverse MCP Server
+  description: "Reads briefing requests, source documents, profiles and templates (brn_*) and saves the draft or the clarification questions. Use read_query to read and update_record to write."
+kind: McpTool
+authMode: Invoker
+connectionReference: brn_agents.cr.shared_commondataserviceforapps.dvmcp
+connectorId: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps
+operationId: InvokeMCP
+allowedTools:
+  - read_query
+  - describe
+  - update_record

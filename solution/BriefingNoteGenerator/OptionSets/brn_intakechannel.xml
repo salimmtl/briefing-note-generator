@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="brn_intakechannel" localizedName="Intake Channel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Intake Channel" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="743800000" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Briefing Studio" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800001" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Briefing Assistant" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800002" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Briefing Notes Hub" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

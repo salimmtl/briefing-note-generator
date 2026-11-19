@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{b33d7219-2f00-47f3-813a-36807a8d80ad}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="Activity" id="{FA9F75C8-F12F-48C8-801D-DD888CCBB110}" expanded="true" showlabel="true">
+          <labels>
+            <label description="Activity" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="Activity" id="{9E7967AD-2859-48AC-AE0F-8E1B30A8F419}" showlabel="true" showbar="false" columns="11">
+                  <labels>
+                    <label description="Activity" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7502B7CB-DA64-4A35-8B3E-72EA8A622FC0}" showlabel="true">
+                        <labels>
+                          <label description="Activity" languagecode="1033" />
+                        </labels>
+                        <control id="brn_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_name" disabled="false" />
+                      </cell>
+                      <cell id="{76E602DC-5927-4BF9-9847-0D454C8F01B4}" showlabel="true">
+                        <labels>
+                          <label description="Briefing Request" languagecode="1033" />
+                        </labels>
+                        <control id="brn_requestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="brn_requestid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{F59132F6-851B-4989-B2E3-900E57B1F322}" showlabel="true">
+                        <labels>
+                          <label description="Actor" languagecode="1033" />
+                        </labels>
+                        <control id="brn_actor" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_actor" disabled="false" />
+                      </cell>
+                      <cell id="{ED60019F-74E4-4BB9-B320-1CAACDDC15CA}" showlabel="true">
+                        <labels>
+                          <label description="Activity Type" languagecode="1033" />
+                        </labels>
+                        <control id="brn_activitytype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_activitytype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3DD4CA10-4AA3-40A8-A9CE-5310B2402B79}" showlabel="true">
+                        <labels>
+                          <label description="Started On" languagecode="1033" />
+                        </labels>
+                        <control id="brn_startedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_startedon" disabled="false" />
+                      </cell>
+                      <cell id="{CB31FB08-367F-48F1-8E6A-3698E722395E}" showlabel="true">
+                        <labels>
+                          <label description="Completed On" languagecode="1033" />
+                        </labels>
+                        <control id="brn_completedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_completedon" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{23EE7C44-6ED8-459F-AAFC-3A3398E47FD4}" showlabel="true">
+                        <labels>
+                          <label description="Duration (s)" languagecode="1033" />
+                        </labels>
+                        <control id="brn_durationseconds" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="brn_durationseconds" disabled="false" />
+                      </cell>
+                      <cell id="{57EC6FD5-95B5-42E5-96FC-C7A233890ED5}" showlabel="true">
+                        <labels>
+                          <label description="Workflow Run" languagecode="1033" />
+                        </labels>
+                        <control id="brn_workflowrun" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="brn_workflowrun" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Details" id="{2D787934-42DC-4E42-AC95-C60CD61CB716}" showlabel="false" showbar="false" columns="1">
+                  <labels>
+                    <label description="Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{C8E87442-8903-45DF-AB9F-72A11596AAC2}" showlabel="true" rowspan="10">
+                        <labels>
+                          <label description="Details" languagecode="1033" />
+                        </labels>
+                        <control id="brn_details" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="brn_details" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{879EAEB6-777B-4099-BCE2-9BA29F4F8726}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{CC49D627-71C4-4C84-ADF8-903D9548701E}" showlabel="true">
+              <labels>
+                <label description="Actor" languagecode="1033" />
+              </labels>
+              <control id="header_brn_actor" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_actor" disabled="false" />
+            </cell>
+            <cell id="{CDB99171-F898-4893-9959-15B6EE03673F}" showlabel="true">
+              <labels>
+                <label description="Activity Type" languagecode="1033" />
+              </labels>
+              <control id="header_brn_activitytype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="brn_activitytype" disabled="false" />
+            </cell>
+            <cell id="{ECABD0BE-DFDA-4DFF-B167-53584DD93C07}" showlabel="true">
+              <labels>
+                <label description="Started On" languagecode="1033" />
+              </labels>
+              <control id="header_brn_startedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="brn_startedon" disabled="false" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{81C009BE-2CCE-44AB-8683-6A77DD44885D}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows />
+      </footer>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Briefing Activity" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

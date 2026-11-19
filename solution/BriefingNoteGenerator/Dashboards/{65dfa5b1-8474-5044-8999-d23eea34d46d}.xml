@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <LocalizedNames>
+    <LocalizedName description="Briefing Overview" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Briefing requests by status, note template and priority; intake trend; work waiting on people." languagecode="1033" />
+  </Descriptions>
+  <FormId>{65dfa5b1-8474-5044-8999-d23eea34d46d}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab name="Briefing Overview" id="{D2A5385A-941C-41A2-B8DC-57DA2C323872}" verticallayout="true" showlabel="false">
+            <labels>
+              <label description="Briefing Overview" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section name="Briefing Overview" showlabel="false" showbar="false" columns="111" id="{FCB962EF-1140-4194-99E6-B9E370FCCF54}">
+                    <labels>
+                      <label description="Briefing Overview" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{DE675B2E-CCCF-4029-BC8E-9F630A3DDC4C}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Requests by Status" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_248f7dfb" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{A6484BAB-B5DF-432A-A7E9-0A7A60B5B0E6}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{6C5D33E4-189A-5A43-AB9F-7AE95E50ED2F}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{427701B6-A047-4F4C-A225-616860E27771}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Requests by Note Template" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_9c642077" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{A6484BAB-B5DF-432A-A7E9-0A7A60B5B0E6}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{58C77432-2C85-589C-B1C7-7038540F4162}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{8021F337-3EA9-4F90-87B4-FA22A1C7CAA9}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Requests by Priority" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_91e5b12e" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{A6484BAB-B5DF-432A-A7E9-0A7A60B5B0E6}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{63951E91-2683-5DF0-96BA-41C4682FA485}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{87BCE94D-1409-4729-BA93-6C3C571A02E5}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Requests Created per Week" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_a7f76c1e" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{E8B4C626-8858-53B8-A6FC-476F7D7FCBD7}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{8377BE3D-016E-5C40-9149-BCAE31FD8F37}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{29FE4097-A2F5-4EAB-9FB2-8BAA922A82BC}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Activities by Type" languagecode="1033" />
+                          </labels>
+                          <control id="brn_activity_89a851b9" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{0CEB5C84-7E56-4B23-9F1D-CAB7A800ABBB}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_activity</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{AF331306-4129-57A4-A7F4-DCC8421AA12D}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{32D16D91-A9AC-4A44-BE54-B43355022EA7}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Overdue" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_12170476" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{55FAEF87-5CB1-54D8-8897-A70D9A908A48}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{C1F1B82E-0D89-42C8-B0D0-76B2D9EC7630}" showlabel="true" rowspan="12" colspan="3" auto="false">
+                          <labels>
+                            <label description="In Review" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_1296960e" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{6FD80068-08FC-5EC7-A6D1-AAA01084099D}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{E122DFD5-6A75-4E81-9029-DB098A9D07E1}" showlabel="true" rowspan="12" colspan="3" auto="false">
+                          <labels>
+                            <label description="Needs Info" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_5d03c07c" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{35DD73B1-1D51-515A-8858-415A15D71BE2}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{97D4636D-4922-42BA-9D30-C3D10CE03537}" showlabel="true" rowspan="12" colspan="3" auto="false">
+                          <labels>
+                            <label description="Needs Attention" languagecode="1033" />
+                          </labels>
+                          <control id="brn_request_58f968fd" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{CD944361-80B7-511F-B7DF-374D6FB0DD4D}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>brn_request</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

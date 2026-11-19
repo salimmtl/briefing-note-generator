@@ -1,0 +1,31 @@
+From:    Naomi Castellanos <naomi.castellanos@digitalgov.example>
+         Chief Privacy Officer
+To:      ADM Benefits Delivery; Director of Communications; DM Office Issues Manager
+Date:    Monday, November 9, 2026 5:47 PM
+Subject: PIR-2026-0417 - update on affected count and OIPC
+
+[FICTIONAL DEMO EMAIL]
+
+All,
+
+Quick update ahead of tomorrow's media deadlines:
+
+1. Count: Adatum Cyber completed de-duplication today. The confirmed number of unique
+   affected individuals is 12,412 (up 12 from 12,400). The 12 additional people are
+   disability supplement applicants whose files were stored in a separate folder.
+   That brings the medical-documentation group to 422. We see NO basis for the
+   "15,000+" figure in the Northern Ledger - the vendor's total file count includes
+   duplicates and test records.
+
+2. Letters: 10,640 mailed as of end of day. 1,772 still need address verification.
+
+3. OIPC: The Commissioner's office called this afternoon. They will open a formal
+   investigation and expect to announce it publicly on or around November 16. They
+   asked for our draft notification letter and the Litware contract by Nov 13.
+
+4. Litware: their CEO, Martin Osei, has asked for a call with the ADM. He wants to
+   discuss "continuity of service" - I suspect they are worried about termination.
+
+Can someone confirm whether the DM wants an issue note tonight or tomorrow AM?
+
+Naomi

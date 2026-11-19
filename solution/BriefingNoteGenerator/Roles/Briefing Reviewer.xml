@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{c945a148-55dd-f111-84ea-7c1e52408682}" name="Briefing Reviewer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendbrn_Activity" level="Global" />
+    <RolePrivilege name="prvAppendbrn_Request" level="Global" />
+    <RolePrivilege name="prvAppendbrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Profile" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Request" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvAppendTobrn_Template" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Activity" level="Global" />
+    <RolePrivilege name="prvCreatebrn_Request" level="Global" />
+    <RolePrivilege name="prvCreatebrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadbrn_Activity" level="Global" />
+    <RolePrivilege name="prvReadbrn_Profile" level="Global" />
+    <RolePrivilege name="prvReadbrn_Request" level="Global" />
+    <RolePrivilege name="prvReadbrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvReadbrn_Template" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWritebrn_Request" level="Global" />
+    <RolePrivilege name="prvWritebrn_SourceDocument" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

@@ -1,0 +1,11 @@
+<botcomponent schemaname="brn_BriefingNoteWriter.skill.draft-briefing-note_brn01">
+  <componenttype>9</componenttype>
+  <description>Drafts a cited briefing note from a briefing request's source documents, profile and template, or writes clarification questions to the request when essential information is missing.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>draft-briefing-note</name>
+  <parentbotid>
+    <schemaname>brn_BriefingNoteWriter</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

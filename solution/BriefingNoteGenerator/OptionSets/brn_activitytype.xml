@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="brn_activitytype" localizedName="Activity Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Activity Type" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="743800000" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Submitted" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800001" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Drafting started" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800002" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Clarification requested" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800003" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Clarification provided" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800004" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Draft ready" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800005" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Revision requested" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800006" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Approved" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800007" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Delivered" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800008" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Failed" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800009" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Cancelled" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="743800010" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Note" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

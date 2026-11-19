@@ -1,0 +1,5 @@
+mcs.metadata:
+  componentName: submit-briefing-request
+  description: Collects a briefing request in a short interview (subject, recipient, template, purpose, language, classification, due date, documents), saves the request and its source documents in Dataverse and submits it.
+  schemaName: brn_BriefingAssistant.skill.submit-briefing-request_brn01
+kind: InlineAgentSkill
